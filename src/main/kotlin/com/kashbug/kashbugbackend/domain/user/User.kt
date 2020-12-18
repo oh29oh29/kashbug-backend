@@ -1,9 +1,12 @@
 package com.kashbug.kashbugbackend.domain.user
 
-import com.kashbug.kashbugbackend.domain.value.Gender
-import com.kashbug.kashbugbackend.domain.value.SignUpType
+import com.kashbug.kashbugbackend.domain.user.data.GenderType
+import com.kashbug.kashbugbackend.domain.user.data.SignUpType
+import com.kashbug.kashbugbackend.domain.user.data.converter.GenderTypeConverter
+import com.kashbug.kashbugbackend.domain.user.data.converter.SignUpTypeConverter
 import java.time.LocalDateTime
 import javax.persistence.Column
+import javax.persistence.Convert
 import javax.persistence.Entity
 import javax.persistence.Id
 
@@ -20,7 +23,8 @@ class User(
     val password: String,
 
     @Column
-    val gender: Gender,
+    @Convert(converter = GenderTypeConverter::class)
+    val gender: GenderType,
 
     @Column
     val email: String,
@@ -35,6 +39,7 @@ class User(
     val birthYear: LocalDateTime,
 
     @Column
+    @Convert(converter = SignUpTypeConverter::class)
     val signUpType: SignUpType,
 
     @Column
