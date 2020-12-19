@@ -2,18 +2,19 @@ package com.kashbug.kashbugbackend.domain.user.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-enum class GenderType(
+enum class AccountType(
     val value: String
 ) {
 
-    @JsonProperty("M")
-    MALE("M"),
+    @JsonProperty("I")
+    INDIVIDUAL("I"),
 
-    @JsonProperty("F")
-    FEMALE("F")
+    @JsonProperty("E")
+    ENTERPRISE("E")
     ;
 
     companion object {
         fun of(value: String?) = values().find { it.value == value }
     }
+
 }

@@ -1,9 +1,12 @@
 package com.kashbug.kashbugbackend.domain.user.data
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 enum class SignUpType(
     val value: String
 ) {
 
+    @JsonProperty("D")
     DIRECT("D")
     ;
 
