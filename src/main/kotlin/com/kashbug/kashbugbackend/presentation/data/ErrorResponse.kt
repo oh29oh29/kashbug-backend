@@ -1,4 +1,4 @@
-package com.kashbug.kashbugbackend.application.data
+package com.kashbug.kashbugbackend.presentation.data
 
 data class ErrorResponse(
 

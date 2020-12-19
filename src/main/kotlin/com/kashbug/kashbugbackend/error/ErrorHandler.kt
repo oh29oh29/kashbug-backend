@@ -1,6 +1,6 @@
 package com.kashbug.kashbugbackend.error
 
-import com.kashbug.kashbugbackend.application.data.ErrorResponse
+import com.kashbug.kashbugbackend.presentation.data.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
