@@ -33,10 +33,10 @@ class User(
     val contact: String,
 
     @Column
-    val profileImageUrl: String,
+    val profileImageUrl: String?,
 
     @Column
-    val birthYear: LocalDateTime,
+    val birthYear: String,
 
     @Column
     @Convert(converter = SignUpTypeConverter::class)
@@ -46,9 +46,63 @@ class User(
     val registrationDateTime: LocalDateTime,
 
     @Column
-    val modificationDateTime: LocalDateTime
+    val modificationDateTime: LocalDateTime?
 
 ) {
+
+    companion object {
+        fun of(
+            id: String,
+            name: String,
+            password: String,
+            gender: GenderType,
+            email: String,
+            contact: String,
+            profileImageUrl: String?,
+            birthYear: String,
+            signUpType: SignUpType
+        ): User {
+            return User(
+                id,
+                name,
+                password,
+                gender,
+                email,
+                contact,
+                profileImageUrl,
+                birthYear,
+                signUpType,
+                LocalDateTime.now()
+            )
+        }
+
+    }
+
+    constructor(
+        id: String,
+        name: String,
+        password: String,
+        gender: GenderType,
+        email: String,
+        contact: String,
+        profileImageUrl: String?,
+        birthYear: String,
+        signUpType: SignUpType,
+        registrationDateTime: LocalDateTime) :
+        this(
+            id,
+            name,
+            password,
+            gender,
+            email,
+            contact,
+            profileImageUrl,
+            birthYear,
+            signUpType,
+            registrationDateTime,
+            null
+        )
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
