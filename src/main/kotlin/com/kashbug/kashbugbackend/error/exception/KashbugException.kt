@@ -1,6 +1,6 @@
 package com.kashbug.kashbugbackend.error.exception
 
-import com.kashbug.kashbugbackend.application.data.ResponseCode
+import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 
 class KashbugException(
     private val code: ResponseCode,
