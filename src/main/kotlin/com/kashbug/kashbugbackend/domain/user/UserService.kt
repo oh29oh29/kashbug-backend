@@ -23,7 +23,7 @@ class UserService(
         signUpType: SignUpType
     ) {
         userRepository.save(
-            User.of(
+            User(
                 id,
                 name,
                 password,

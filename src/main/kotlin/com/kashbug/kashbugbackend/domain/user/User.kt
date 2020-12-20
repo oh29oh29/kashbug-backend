@@ -50,34 +50,6 @@ class User(
 
 ) {
 
-    companion object {
-        fun of(
-            id: String,
-            name: String,
-            password: String,
-            gender: GenderType,
-            email: String,
-            contact: String,
-            profileImageUrl: String?,
-            birthYear: String,
-            signUpType: SignUpType
-        ): User {
-            return User(
-                id,
-                name,
-                password,
-                gender,
-                email,
-                contact,
-                profileImageUrl,
-                birthYear,
-                signUpType,
-                LocalDateTime.now()
-            )
-        }
-
-    }
-
     constructor(
         id: String,
         name: String,
@@ -87,21 +59,20 @@ class User(
         contact: String,
         profileImageUrl: String?,
         birthYear: String,
-        signUpType: SignUpType,
-        registrationDateTime: LocalDateTime) :
-        this(
-            id,
-            name,
-            password,
-            gender,
-            email,
-            contact,
-            profileImageUrl,
-            birthYear,
-            signUpType,
-            registrationDateTime,
-            null
-        )
+        signUpType: SignUpType
+    ) : this(
+        id,
+        name,
+        password,
+        gender,
+        email,
+        contact,
+        profileImageUrl,
+        birthYear,
+        signUpType,
+        LocalDateTime.now(),
+        null
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
