@@ -1,14 +1,14 @@
-package com.kashbug.kashbugbackend.domain.user
+package com.kashbug.kashbugbackend.domain.member
 
-import com.kashbug.kashbugbackend.domain.user.data.GenderType
-import com.kashbug.kashbugbackend.domain.user.data.SignUpType
+import com.kashbug.kashbugbackend.domain.member.data.GenderType
+import com.kashbug.kashbugbackend.domain.member.data.SignUpType
 import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(
-    private val userRepository: UserRepository
+class MemberService(
+    private val memberRepository: MemberRepository
 ) {
 
     fun save(
@@ -22,8 +22,8 @@ class UserService(
         birthYear: String,
         signUpType: SignUpType
     ) {
-        userRepository.save(
-            User(
+        memberRepository.save(
+            Member(
                 id,
                 name,
                 password,
@@ -37,16 +37,16 @@ class UserService(
         )
     }
 
-    fun isDuplicatedUserId(id: String): Boolean {
-        val duplicatedUser = userRepository.findById(id)
-        if (duplicatedUser.isEmpty) return false
+    fun isDuplicatedMemberId(id: String): Boolean {
+        val duplicatedMember = memberRepository.findById(id)
+        if (duplicatedMember.isEmpty) return false
         return true
     }
 
-    fun get(id: String): User {
-        val user = userRepository.findById(id)
+    fun get(id: String): Member {
+        val member = memberRepository.findById(id)
 
-        if (user.isEmpty) throw KashbugException(ResponseCode.NOT_FOUND_USER)
-        return user.get()
+        if (member.isEmpty) throw KashbugException(ResponseCode.NOT_FOUND_MEMBER)
+        return member.get()
     }
 }

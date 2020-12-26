@@ -10,6 +10,6 @@ enum class ResponseCode(val code: String, val message: String) {
     INVALID_JWT_TOKEN("4002", "JWT Token이 유효하지 않습니다."),
     INVALID_JWT_SIGNATURE("4003", "JWT Signature가 유효하지 않습니다."),
     NOT_NULL_JWT_CLAIM("4004", "JWT Claim이 비어져 있습니다."),
-    NOT_FOUND_USER("4005", "존재하지 않는 사용자 계정입니다.")
+    NOT_FOUND_MEMBER("4005", "존재하지 않는 사용자 계정입니다.")
     ;
 }

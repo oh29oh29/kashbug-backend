@@ -1,13 +1,16 @@
-package com.kashbug.kashbugbackend.domain.user.data
+package com.kashbug.kashbugbackend.domain.member.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-enum class SignUpType(
+enum class AccountType(
     val value: String
 ) {
 
-    @JsonProperty("D")
-    DIRECT("D")
+    @JsonProperty("I")
+    INDIVIDUAL("I"),
+
+    @JsonProperty("E")
+    ENTERPRISE("E")
     ;
 
     companion object {

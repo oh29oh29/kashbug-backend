@@ -1,8 +1,8 @@
 package com.kashbug.kashbugbackend.service
 
-import com.kashbug.kashbugbackend.domain.user.UserService
-import com.kashbug.kashbugbackend.domain.user.data.AccountType
-import com.kashbug.kashbugbackend.domain.user.data.SignUpType
+import com.kashbug.kashbugbackend.domain.member.MemberService
+import com.kashbug.kashbugbackend.domain.member.data.AccountType
+import com.kashbug.kashbugbackend.domain.member.data.SignUpType
 import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import com.kashbug.kashbugbackend.service.data.LoginRequest
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 @Service
 class LoginService(
     private val passwordEncoder: PasswordEncoder,
-    private val userService: UserService
+    private val memberService: MemberService
 ) {
 
     private val log = LoggerFactory.getLogger(LoginService::class.java)
@@ -36,12 +36,12 @@ class LoginService(
             throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
         }
 
-        if (userService.isDuplicatedUserId(request.id)) {
+        if (memberService.isDuplicatedMemberId(request.id)) {
             log.debug("아이디가 이미 존재합니다. id: ${request.id}")
             throw KashbugException(ResponseCode.DUPLICATED_ID)
         }
 
-        userService.save(
+        memberService.save(
             request.id,
             request.name,
             toEncryptedPassword(request.password),

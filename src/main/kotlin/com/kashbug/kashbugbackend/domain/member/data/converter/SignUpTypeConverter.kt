@@ -1,6 +1,6 @@
-package com.kashbug.kashbugbackend.domain.user.data.converter
+package com.kashbug.kashbugbackend.domain.member.data.converter
 
-import com.kashbug.kashbugbackend.domain.user.data.SignUpType
+import com.kashbug.kashbugbackend.domain.member.data.SignUpType
 import javax.persistence.AttributeConverter
 
 class SignUpTypeConverter : AttributeConverter<SignUpType, String> {

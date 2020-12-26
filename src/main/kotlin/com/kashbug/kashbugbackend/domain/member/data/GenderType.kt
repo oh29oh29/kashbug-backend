@@ -1,4 +1,4 @@
-package com.kashbug.kashbugbackend.domain.user.data
+package com.kashbug.kashbugbackend.domain.member.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
