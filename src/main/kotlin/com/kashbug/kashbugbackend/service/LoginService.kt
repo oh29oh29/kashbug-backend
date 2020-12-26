@@ -1,11 +1,13 @@
 package com.kashbug.kashbugbackend.service
 
+import com.kashbug.kashbugbackend.config.jwt.JwtTokenProvider
 import com.kashbug.kashbugbackend.domain.member.MemberService
 import com.kashbug.kashbugbackend.domain.member.data.AccountType
 import com.kashbug.kashbugbackend.domain.member.data.SignUpType
 import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import com.kashbug.kashbugbackend.service.data.LoginRequest
+import com.kashbug.kashbugbackend.service.data.LoginResponse
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -13,7 +15,8 @@ import org.springframework.stereotype.Service
 @Service
 class LoginService(
     private val passwordEncoder: PasswordEncoder,
-    private val memberService: MemberService
+    private val memberService: MemberService,
+    private val jwtTokenProvider: JwtTokenProvider
 ) {
 
     private val log = LoggerFactory.getLogger(LoginService::class.java)
@@ -61,6 +64,14 @@ class LoginService(
 
     private fun toEncryptedPassword(password: String): String {
         return passwordEncoder.encode(password)
+    }
+
+    fun login(request: LoginRequest.Login): LoginResponse.Login {
+        // TODO: memberService.get(request.id) 가 널일 경우 enterpriseService.get(request.id) 처리 필요
+        val user = memberService.get(request.id) ?: throw KashbugException(ResponseCode.NOT_EXIST_USER)
+        if (!passwordEncoder.matches(request.password, user.password)) throw KashbugException(ResponseCode.NOT_MATCHED_USER_PASSWORD)
+
+        return LoginResponse.Login(jwtTokenProvider.issue(user.id))
     }
 
 }

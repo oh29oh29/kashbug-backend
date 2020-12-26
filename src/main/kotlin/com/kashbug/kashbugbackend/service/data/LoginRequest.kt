@@ -20,4 +20,9 @@ class LoginRequest {
         val introduce: String?
     )
 
+    data class Login (
+        val id: String,
+        val password: String
+    )
+
 }

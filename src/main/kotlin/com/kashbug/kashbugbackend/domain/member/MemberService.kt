@@ -2,8 +2,7 @@ package com.kashbug.kashbugbackend.domain.member
 
 import com.kashbug.kashbugbackend.domain.member.data.GenderType
 import com.kashbug.kashbugbackend.domain.member.data.SignUpType
-import com.kashbug.kashbugbackend.error.exception.KashbugException
-import com.kashbug.kashbugbackend.presentation.data.ResponseCode
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -43,10 +42,7 @@ class MemberService(
         return true
     }
 
-    fun get(id: String): Member {
-        val member = memberRepository.findById(id)
-
-        if (member.isEmpty) throw KashbugException(ResponseCode.NOT_FOUND_MEMBER)
-        return member.get()
+    fun get(id: String): Member? {
+        return memberRepository.findByIdOrNull(id)
     }
 }
