@@ -1,6 +1,7 @@
 package com.kashbug.kashbugbackend.service
 
 import com.kashbug.kashbugbackend.config.jwt.JwtTokenProvider
+import com.kashbug.kashbugbackend.domain.enterprise.EnterpriseService
 import com.kashbug.kashbugbackend.domain.member.MemberService
 import com.kashbug.kashbugbackend.domain.member.data.AccountType
 import com.kashbug.kashbugbackend.domain.member.data.SignUpType
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service
 class LoginService(
     private val passwordEncoder: PasswordEncoder,
     private val memberService: MemberService,
+    private val enterpriseService: EnterpriseService,
     private val jwtTokenProvider: JwtTokenProvider
 ) {
 
@@ -30,17 +32,17 @@ class LoginService(
 
     private fun joinIndividual(request: LoginRequest.Join) {
         request.gender ?: run {
-            log.error("성별이 올바르지 않습니다.")
+            log.debug("성별이 비어져 있습니다.")
             throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
         }
 
         if (request.birthYear.isNullOrBlank()) {
-            log.error("출생 연도가 올바르지 않습니다.")
+            log.error("출생 연도가 비어져 있습니다.")
             throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
         }
 
         if (memberService.isDuplicatedMemberId(request.id)) {
-            log.debug("아이디가 이미 존재합니다. id: ${request.id}")
+            log.debug("개인 아이디가 이미 존재합니다. id: ${request.id}")
             throw KashbugException(ResponseCode.DUPLICATED_ID)
         }
 
@@ -59,7 +61,27 @@ class LoginService(
     }
 
     private fun joinEnterprise(request: LoginRequest.Join) {
+        request.introduce ?: run {
+            log.debug("소개가 비어져 있습니다.")
+            throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
+        }
 
+        if (enterpriseService.isDuplicatedEnterpriseId(request.id)) {
+            log.debug("기업 아이디가 이미 존재합니다. id: ${request.id}")
+            throw KashbugException(ResponseCode.DUPLICATED_ID)
+        }
+
+        enterpriseService.save(
+            request.id,
+            request.name,
+            toEncryptedPassword(request.password),
+            request.email,
+            request.serial,
+            request.contact,
+            request.profileImageUrl,
+            request.homepageUrl,
+            request.introduce
+        )
     }
 
     private fun toEncryptedPassword(password: String): String {
@@ -67,8 +89,11 @@ class LoginService(
     }
 
     fun login(request: LoginRequest.Login): LoginResponse.Login {
-        // TODO: memberService.get(request.id) 가 널일 경우 enterpriseService.get(request.id) 처리 필요
-        val user = memberService.get(request.id) ?: throw KashbugException(ResponseCode.NOT_EXIST_USER)
+        val user =
+            memberService.get(request.id)
+                ?: enterpriseService.get(request.id)
+                ?: throw KashbugException(ResponseCode.NOT_EXIST_USER)
+
         if (!passwordEncoder.matches(request.password, user.password)) throw KashbugException(ResponseCode.NOT_MATCHED_USER_PASSWORD)
 
         return LoginResponse.Login(jwtTokenProvider.issue(user.id))
