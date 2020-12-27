@@ -1,7 +1,7 @@
 package com.kashbug.kashbugbackend.service.data
 
-import com.kashbug.kashbugbackend.domain.user.data.AccountType
-import com.kashbug.kashbugbackend.domain.user.data.GenderType
+import com.kashbug.kashbugbackend.domain.member.data.AccountType
+import com.kashbug.kashbugbackend.domain.member.data.GenderType
 
 class LoginRequest {
 
@@ -18,6 +18,11 @@ class LoginRequest {
         val serial: String?,
         val homepageUrl: String?,
         val introduce: String?
+    )
+
+    data class Login (
+        val id: String,
+        val password: String
     )
 
 }

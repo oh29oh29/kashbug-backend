@@ -11,27 +11,38 @@ import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Component
 import java.util.*
+import javax.annotation.PostConstruct
 
 @Component
 class JwtTokenProvider(
     private val jwtUserDetailService: JwtUserDetailService
 ) {
     private val log = LoggerFactory.getLogger(JwtTokenProvider::class.java)
+    private lateinit var secretKey: String
 
     companion object {
-        const val SECRET_KEY: String = "kashbug"
+        const val SECRET_KEY: String = "christmas"
         const val TOKEN_EXPIRATION: Long = 15 * 60_000L
+    }
+
+    @PostConstruct
+    private fun init() {
+        secretKey = SECRET_KEY
+        (0..5).forEach {
+            secretKey = Base64.getEncoder().encodeToString(secretKey.toByteArray())
+        }
     }
 
     fun issue(id: String): String {
         val claims = Jwts.claims().setSubject(id)
         val now = Date()
+
         return Jwts
             .builder()
             .setClaims(claims)
             .setIssuedAt(now)
             .setExpiration(Date(now.time + TOKEN_EXPIRATION))
-            .signWith(Keys.hmacShaKeyFor(SECRET_KEY.toByteArray()))
+            .signWith(Keys.hmacShaKeyFor(secretKey.toByteArray()))
             .compact()
     }
 
@@ -41,7 +52,7 @@ class JwtTokenProvider(
         try {
             Jwts
                 .parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.toByteArray()))
+                .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
                 .build()
                 .parse(accessToken)
         } catch (e: ExpiredJwtException) {
@@ -65,7 +76,10 @@ class JwtTokenProvider(
     }
 
     private fun extractUserId(accessToken: String): String {
-        return Jwts.parserBuilder().setSigningKey(SECRET_KEY).build()
+        return Jwts
+            .parserBuilder()
+            .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
+            .build()
             .parseClaimsJws(accessToken)
             .body
             .subject

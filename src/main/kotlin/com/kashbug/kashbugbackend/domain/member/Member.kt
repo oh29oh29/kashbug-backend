@@ -1,9 +1,9 @@
-package com.kashbug.kashbugbackend.domain.user
+package com.kashbug.kashbugbackend.domain.member
 
-import com.kashbug.kashbugbackend.domain.user.data.GenderType
-import com.kashbug.kashbugbackend.domain.user.data.SignUpType
-import com.kashbug.kashbugbackend.domain.user.data.converter.GenderTypeConverter
-import com.kashbug.kashbugbackend.domain.user.data.converter.SignUpTypeConverter
+import com.kashbug.kashbugbackend.domain.member.data.GenderType
+import com.kashbug.kashbugbackend.domain.member.data.SignUpType
+import com.kashbug.kashbugbackend.domain.member.data.converter.GenderTypeConverter
+import com.kashbug.kashbugbackend.domain.member.data.converter.SignUpTypeConverter
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Convert
@@ -11,7 +11,7 @@ import javax.persistence.Entity
 import javax.persistence.Id
 
 @Entity
-class User(
+class Member(
 
     @Id
     val id: String,
@@ -50,34 +50,6 @@ class User(
 
 ) {
 
-    companion object {
-        fun of(
-            id: String,
-            name: String,
-            password: String,
-            gender: GenderType,
-            email: String,
-            contact: String,
-            profileImageUrl: String?,
-            birthYear: String,
-            signUpType: SignUpType
-        ): User {
-            return User(
-                id,
-                name,
-                password,
-                gender,
-                email,
-                contact,
-                profileImageUrl,
-                birthYear,
-                signUpType,
-                LocalDateTime.now()
-            )
-        }
-
-    }
-
     constructor(
         id: String,
         name: String,
@@ -87,27 +59,26 @@ class User(
         contact: String,
         profileImageUrl: String?,
         birthYear: String,
-        signUpType: SignUpType,
-        registrationDateTime: LocalDateTime) :
-        this(
-            id,
-            name,
-            password,
-            gender,
-            email,
-            contact,
-            profileImageUrl,
-            birthYear,
-            signUpType,
-            registrationDateTime,
-            null
-        )
+        signUpType: SignUpType
+    ) : this(
+        id,
+        name,
+        password,
+        gender,
+        email,
+        contact,
+        profileImageUrl,
+        birthYear,
+        signUpType,
+        LocalDateTime.now(),
+        null
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as User
+        other as Member
 
         if (id != other.id) return false
         return true
@@ -118,7 +89,7 @@ class User(
     }
 
     override fun toString(): String {
-        return "User(" +
+        return "Member(" +
             "id='$id', " +
             "name='$name', " +
             "password='$password', " +
