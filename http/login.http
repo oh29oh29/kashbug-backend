@@ -1,4 +1,4 @@
-### 회원가입
+### 회원가입 for 개인
 POST http://localhost:8080/api/v1/join
 Content-Type: application/json
 
@@ -12,6 +12,23 @@ Content-Type: application/json
   "profileImageUrl": "",
   "birthYear": "2020",
   "accountType": "I"
+}
+
+### 회원가입 for 기업
+POST http://localhost:8080/api/v1/join
+Content-Type: application/json
+
+{
+  "id": "kashbug",
+  "name": "캐시버그",
+  "password": "k@shbug892931",
+  "email": "kashbug.manager@gmail.com",
+  "contact": "01012345678",
+  "profileImageUrl": "http://placehold.it/100",
+  "accountType": "E",
+  "serial": "0123456789",
+  "homepageUrl": "http://kashbug.com",
+  "introduce": "회사 소개글"
 }
 
 ### 로그인

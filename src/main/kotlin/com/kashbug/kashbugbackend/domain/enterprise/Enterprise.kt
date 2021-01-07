@@ -1,18 +1,13 @@
-package com.kashbug.kashbugbackend.domain.member
+package com.kashbug.kashbugbackend.domain.enterprise
 
 import com.kashbug.kashbugbackend.domain.User
-import com.kashbug.kashbugbackend.domain.member.data.GenderType
-import com.kashbug.kashbugbackend.domain.member.data.SignUpType
-import com.kashbug.kashbugbackend.domain.member.data.converter.GenderTypeConverter
-import com.kashbug.kashbugbackend.domain.member.data.converter.SignUpTypeConverter
 import java.time.LocalDateTime
 import javax.persistence.Column
-import javax.persistence.Convert
 import javax.persistence.Entity
 import javax.persistence.Id
 
 @Entity
-class Member(
+class Enterprise(
 
     @Id
     override val id: String,
@@ -24,11 +19,10 @@ class Member(
     override val password: String,
 
     @Column
-    @Convert(converter = GenderTypeConverter::class)
-    val gender: GenderType,
+    val email: String,
 
     @Column
-    val email: String,
+    val serial: String?,
 
     @Column
     val contact: String,
@@ -37,11 +31,10 @@ class Member(
     val profileImageUrl: String?,
 
     @Column
-    val birthYear: String,
+    val homepageUrl: String?,
 
     @Column
-    @Convert(converter = SignUpTypeConverter::class)
-    val signUpType: SignUpType,
+    val introduce: String,
 
     @Column
     val registrationDateTime: LocalDateTime,
@@ -50,27 +43,26 @@ class Member(
     val modificationDateTime: LocalDateTime?
 
 ) : User {
-
     constructor(
         id: String,
         name: String,
         password: String,
-        gender: GenderType,
         email: String,
+        serial: String?,
         contact: String,
         profileImageUrl: String?,
-        birthYear: String,
-        signUpType: SignUpType
+        homepageUrl: String?,
+        introduce: String
     ) : this(
         id,
         name,
         password,
-        gender,
         email,
+        serial,
         contact,
         profileImageUrl,
-        birthYear,
-        signUpType,
+        homepageUrl,
+        introduce,
         LocalDateTime.now(),
         null
     )
@@ -79,7 +71,7 @@ class Member(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Member
+        other as Enterprise
 
         return id == other.id
     }
@@ -89,18 +81,19 @@ class Member(
     }
 
     override fun toString(): String {
-        return "Member(" +
+        return "Enterprise(" +
             "id='$id', " +
             "name='$name', " +
             "password='$password', " +
-            "gender=$gender, " +
             "email='$email', " +
+            "serial='$serial', " +
             "contact='$contact', " +
-            "profileImageUrl='$profileImageUrl', " +
-            "birthYear=$birthYear, " +
-            "signUpType=$signUpType, " +
+            "profileImageUrl=$profileImageUrl, " +
+            "homepageUrl=$homepageUrl, " +
+            "introduce='$introduce', " +
             "registrationDateTime=$registrationDateTime, " +
             "modificationDateTime=$modificationDateTime" +
             ")"
     }
+
 }

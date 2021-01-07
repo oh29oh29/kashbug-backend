@@ -4,6 +4,7 @@ import com.kashbug.kashbugbackend.domain.member.data.GenderType
 import com.kashbug.kashbugbackend.domain.member.data.SignUpType
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class MemberService(
@@ -37,9 +38,8 @@ class MemberService(
     }
 
     fun isDuplicatedMemberId(id: String): Boolean {
-        val duplicatedMember = memberRepository.findById(id)
-        if (duplicatedMember.isEmpty) return false
-        return true
+        val duplicatedMember = memberRepository.findByIdOrNull(id)
+        return !Objects.isNull(duplicatedMember)
     }
 
     fun get(id: String): Member? {
