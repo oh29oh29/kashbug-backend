@@ -1,4 +1,4 @@
-package com.kashbug.kashbugbackend.service.data
+package com.kashbug.kashbugbackend.application.data
 
 import com.kashbug.kashbugbackend.domain.member.data.AccountType
 import com.kashbug.kashbugbackend.domain.member.data.GenderType
