@@ -35,12 +35,12 @@ class Project(
     val status: StatusType,
 
     @Column(name = "start_datetime")
-    val startAt: LocalDateTime,
+    val startAt: LocalDateTime?,
 
     @Column(name = "deadline_datetime")
-    val deadlineAt: LocalDateTime,
+    val deadlineAt: LocalDateTime
 
-    ) {
+) {
 
     @Id
     val id: String = UUID.randomUUID().toString()

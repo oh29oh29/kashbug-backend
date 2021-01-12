@@ -1,20 +1,14 @@
 package com.kashbug.kashbugbackend.domain.project.data
 
-import com.fasterxml.jackson.annotation.JsonProperty
+enum class StatusType {
 
-enum class StatusType(
-    val value: String
-) {
+    TEST,
 
-    @JsonProperty("T")
-    TEST("T"),
-
-    @JsonProperty("L")
-    LIVE("L")
+    LIVE
     ;
 
     companion object {
-        fun of(value: String?) = values().find { it.value == value }
+        fun of(name: String?) = values().find { it.name == name }
     }
 
 }

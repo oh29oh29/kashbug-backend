@@ -17,7 +17,8 @@ class ProjectService(
         rewardDuration: Int,
         url: String?,
         status: StatusType,
-        deadline: LocalDateTime
+        startAt: LocalDateTime?,
+        deadlineAt: LocalDateTime
     ) {
         projectRepository.save(
             Project(
@@ -28,7 +29,8 @@ class ProjectService(
                 rewardDuration,
                 url,
                 status,
-                deadline
+                startAt,
+                deadlineAt
             )
         )
     }

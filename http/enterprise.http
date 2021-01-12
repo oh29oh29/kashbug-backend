@@ -1,0 +1,15 @@
+### 프로젝트 등록
+POST http://localhost:8080/api/v1/enterprise/project
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjEwNDU2NDg5LCJleHAiOjE2MTA0NTczODl9.rx5mhe2CukJQ4FHUpxXraMYn3QTOmIIG4zmJM6u8ha2eiky68HnWIAwrUv0UKNyd
+
+{
+  "name": "테스트",
+  "category": ["GAME"],
+  "contents": "1234",
+  "reward": 10000,
+  "rewardDuration": 7,
+  "status": "TEST",
+  "profileImageUrl": "",
+  "deadlineAt": "20210131235959"
+}

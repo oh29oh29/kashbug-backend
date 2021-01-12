@@ -4,10 +4,7 @@ import com.kashbug.kashbugbackend.application.EnterpriseApplicationService
 import com.kashbug.kashbugbackend.application.data.EnterpriseRequest
 import com.kashbug.kashbugbackend.presentation.data.OkResponse
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/enterprise")
@@ -16,8 +13,14 @@ class EnterpriseController(
 ) {
 
     @PostMapping("/project")
-    fun registerProject(@Validated @RequestBody request: EnterpriseRequest.RegisterProject): OkResponse<Void> {
-        enterpriseApplicationService.registerProject(request)
+    fun registerProject(userId: String, @Validated @RequestBody request: EnterpriseRequest.RegisterProject): OkResponse<Void> {
+        enterpriseApplicationService.registerProject(userId, request)
+        return OkResponse()
+    }
+
+    @GetMapping("/projects")
+    fun getProjects(userId: String): OkResponse<Void> {
+        println(userId)
         return OkResponse()
     }
 }
