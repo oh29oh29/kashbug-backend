@@ -37,9 +37,9 @@ class MemberService(
         )
     }
 
-    fun isDuplicatedMemberId(id: String): Boolean {
-        val duplicatedMember = memberRepository.findByIdOrNull(id)
-        return !Objects.isNull(duplicatedMember)
+    fun existId(id: String): Boolean {
+        val existMember = memberRepository.findByIdOrNull(id)
+        return !Objects.isNull(existMember)
     }
 
     fun get(id: String): Member? {

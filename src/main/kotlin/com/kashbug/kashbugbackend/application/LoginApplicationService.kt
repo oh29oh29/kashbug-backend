@@ -41,9 +41,14 @@ class LoginApplicationService(
             throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
         }
 
-        if (memberService.isDuplicatedMemberId(request.id)) {
+        if (memberService.existId(request.id)) {
             log.debug("개인 아이디가 이미 존재합니다. id: ${request.id}")
-            throw KashbugException(ResponseCode.DUPLICATED_ID)
+            throw KashbugException(ResponseCode.EXIST_USER_ID)
+        }
+
+        if (enterpriseService.existId(request.id)) {
+            log.debug("기업 아이디로 이미 존재합니다. id: ${request.id}")
+            throw KashbugException(ResponseCode.EXIST_USER_ID)
         }
 
         memberService.save(
@@ -66,9 +71,14 @@ class LoginApplicationService(
             throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
         }
 
-        if (enterpriseService.isDuplicatedEnterpriseId(request.id)) {
+        if (enterpriseService.existId(request.id)) {
             log.debug("기업 아이디가 이미 존재합니다. id: ${request.id}")
-            throw KashbugException(ResponseCode.DUPLICATED_ID)
+            throw KashbugException(ResponseCode.EXIST_USER_ID)
+        }
+
+        if (memberService.existId(request.id)) {
+            log.debug("개인 아이디로 이미 존재합니다. id: ${request.id}")
+            throw KashbugException(ResponseCode.EXIST_USER_ID)
         }
 
         enterpriseService.save(
