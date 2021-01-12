@@ -1,4 +1,4 @@
-package com.kashbug.kashbugbackend.service.data
+package com.kashbug.kashbugbackend.application.data
 
 class LoginResponse {
 

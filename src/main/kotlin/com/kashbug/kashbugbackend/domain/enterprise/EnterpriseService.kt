@@ -35,9 +35,9 @@ class EnterpriseService(
         )
     }
 
-    fun isDuplicatedEnterpriseId(id: String): Boolean {
-        val duplicatedEnterprise = enterpriseRepository.findByIdOrNull(id)
-        return !Objects.isNull(duplicatedEnterprise)
+    fun existId(id: String): Boolean {
+        val existEnterprise = enterpriseRepository.findByIdOrNull(id)
+        return !Objects.isNull(existEnterprise)
     }
 
     fun get(id: String): Enterprise? {
