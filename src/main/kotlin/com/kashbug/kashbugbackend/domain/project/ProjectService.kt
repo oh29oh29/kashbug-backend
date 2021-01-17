@@ -3,6 +3,8 @@ package com.kashbug.kashbugbackend.domain.project
 import com.kashbug.kashbugbackend.domain.project.data.StatusType
 import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -23,8 +25,8 @@ class ProjectService(
         status: StatusType,
         startAt: LocalDateTime?,
         deadlineAt: LocalDateTime
-    ) {
-        projectRepository.save(
+    ): Project {
+        return projectRepository.save(
             Project(
                 name,
                 ownerId,
@@ -42,8 +44,8 @@ class ProjectService(
 
     private fun toImageUrl(imageUrl: List<String>?) = imageUrl?.joinToString { "," }
 
-    fun get(): List<Project> {
-        return projectRepository.findAll()
+    fun get(pageable: Pageable): Page<Project> {
+        return projectRepository.findAll(pageable)
     }
 
     fun get(

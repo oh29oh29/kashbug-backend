@@ -9,6 +9,7 @@ import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import com.kashbug.kashbugbackend.toBasicString
 import com.kashbug.kashbugbackend.toLocalDateTime
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -24,7 +25,7 @@ class EnterpriseApplicationService(
 
         if (!enterpriseService.existId(userId)) throw KashbugException(ResponseCode.NOT_ALLOWED_USER)
 
-        projectService.save(
+        val project = projectService.save(
             request.name,
             userId,
             request.contents,
@@ -39,15 +40,34 @@ class EnterpriseApplicationService(
 
         request.category?.let {
             interestService.save(
-                userId,
+                project.id,
                 it
             )
         }
     }
 
+    fun getProjects(pageable: Pageable): EnterpriseResponse.GetProjects {
+        val projects = projectService.get(pageable)
+
+        return EnterpriseResponse.GetProjects(
+            projects.totalPages,
+            projects.map { project ->
+                val interests = interestService.get(project.id).map { interest -> interest.code }
+                // TODO: 버그 카운트 조회
+                EnterpriseResponse.GetProjects.Project(
+                    project.name,
+                    interests,
+                    10,
+                    project.startAt?.toBasicString(),
+                    project.deadlineAt.toBasicString(),
+                )
+            }.toList()
+        )
+    }
+
     fun getProject(userId: String, projectId: String): EnterpriseResponse.GetProject {
         val project = projectService.get(userId, projectId)
-        val interests = interestService.get(userId).map { it.code }
+        val interests = interestService.get(projectId).map { it.code }
 
         // TODO: 버그 리스트 조회
 

@@ -5,6 +5,19 @@ import com.kashbug.kashbugbackend.domain.project.data.StatusType
 
 class EnterpriseResponse {
 
+    data class GetProjects(
+        val totalCount: Int,
+        val projects: List<Project>
+    ) {
+        data class Project(
+            val name: String,
+            val category: List<InterestCode>,
+            val bugCount: Int,
+            val startAt: String?,
+            val deadlineAt: String
+        )
+    }
+
     data class GetProject(
         val name: String,
         val category: List<InterestCode>?,
@@ -25,4 +38,5 @@ class EnterpriseResponse {
             val status: String
         )
     }
+
 }
