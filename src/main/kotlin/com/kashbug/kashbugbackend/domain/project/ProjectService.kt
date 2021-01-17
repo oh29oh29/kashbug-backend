@@ -1,6 +1,9 @@
 package com.kashbug.kashbugbackend.domain.project
 
 import com.kashbug.kashbugbackend.domain.project.data.StatusType
+import com.kashbug.kashbugbackend.error.exception.KashbugException
+import com.kashbug.kashbugbackend.presentation.data.ResponseCode
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -16,6 +19,7 @@ class ProjectService(
         reward: Int,
         rewardDuration: Int,
         url: String?,
+        imageUrl: List<String>?,
         status: StatusType,
         startAt: LocalDateTime?,
         deadlineAt: LocalDateTime
@@ -28,6 +32,7 @@ class ProjectService(
                 reward,
                 rewardDuration,
                 url,
+                toImageUrl(imageUrl),
                 status,
                 startAt,
                 deadlineAt
@@ -35,13 +40,19 @@ class ProjectService(
         )
     }
 
+    private fun toImageUrl(imageUrl: List<String>?) = imageUrl?.joinToString { "," }
+
     fun get(): List<Project> {
         return projectRepository.findAll()
     }
 
     fun get(
-        ownerId: String?
-    ): List<Project> {
-        return listOf()
+        ownerId: String,
+        projectId: String
+    ): Project {
+        val project = projectRepository.findByIdOrNull(projectId) ?: throw KashbugException(ResponseCode.BAD_REQUEST)
+        if (project.ownerId != ownerId) throw KashbugException(ResponseCode.NOT_ALLOWED_USER)
+
+        return project
     }
 }

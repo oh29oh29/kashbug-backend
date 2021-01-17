@@ -1,17 +1,25 @@
 package com.kashbug.kashbugbackend.domain.interest
 
+import com.kashbug.kashbugbackend.domain.interest.data.InterestCode
+import com.kashbug.kashbugbackend.domain.interest.data.converter.InterestCodeConverter
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.EmbeddedId
-import javax.persistence.Entity
+import javax.persistence.*
 
 @Entity
 class Interest(
 
-    @EmbeddedId
-    val interestId: InterestId
+    @Column
+    val targetId: String,
+
+    @Column
+    @Convert(converter = InterestCodeConverter::class)
+    val code: InterestCode
 
 ) {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
 
     @Column(name = "register_datetime")
     val registerAt: LocalDateTime = LocalDateTime.now()
@@ -21,10 +29,19 @@ class Interest(
         if (javaClass != other?.javaClass) return false
 
         other as Interest
-        return interestId == other.interestId
+        return id == other.id
     }
 
     override fun hashCode(): Int {
-        return interestId.hashCode()
+        return id.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Interest(" +
+            "targetId='$targetId', " +
+            "code=$code, " +
+            "id=$id, " +
+            "registerAt=$registerAt" +
+            ")"
     }
 }

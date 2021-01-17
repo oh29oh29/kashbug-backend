@@ -12,11 +12,16 @@ class InterestService(
         targetId: String,
         interests: List<InterestCode>
     ) {
-        val interest = interests.map {
-            val id = InterestId(targetId, it)
-            Interest(id)
-        }.toList()
+        interestRepository.saveAll(
+            interests.map {
+                Interest(targetId, it)
+            }.toList()
+        )
+    }
 
-        interestRepository.saveAll(interest)
+    fun get(
+        targetId: String
+    ): List<Interest> {
+        return interestRepository.findByTargetId(targetId)
     }
 }

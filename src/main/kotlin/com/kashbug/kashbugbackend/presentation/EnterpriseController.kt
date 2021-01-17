@@ -2,6 +2,7 @@ package com.kashbug.kashbugbackend.presentation
 
 import com.kashbug.kashbugbackend.application.EnterpriseApplicationService
 import com.kashbug.kashbugbackend.application.data.EnterpriseRequest
+import com.kashbug.kashbugbackend.application.data.EnterpriseResponse
 import com.kashbug.kashbugbackend.presentation.data.OkResponse
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -18,9 +19,8 @@ class EnterpriseController(
         return OkResponse()
     }
 
-    @GetMapping("/projects")
-    fun getProjects(userId: String): OkResponse<Void> {
-        println(userId)
-        return OkResponse()
+    @GetMapping("/project")
+    fun getProject(userId: String, @RequestParam projectId: String): OkResponse<EnterpriseResponse.GetProject> {
+        return OkResponse(enterpriseApplicationService.getProject(userId, projectId))
     }
 }

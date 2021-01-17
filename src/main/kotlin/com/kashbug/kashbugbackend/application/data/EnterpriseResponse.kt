@@ -3,9 +3,9 @@ package com.kashbug.kashbugbackend.application.data
 import com.kashbug.kashbugbackend.domain.interest.data.InterestCode
 import com.kashbug.kashbugbackend.domain.project.data.StatusType
 
-class EnterpriseRequest {
+class EnterpriseResponse {
 
-    data class RegisterProject(
+    data class GetProject(
         val name: String,
         val category: List<InterestCode>?,
         val contents: String,
@@ -16,9 +16,13 @@ class EnterpriseRequest {
         val status: StatusType,
         val startAt: String?,
         val deadlineAt: String
-    )
+    ) {
 
-    data class GetProject(
-        val projectId: String
-    )
+        data class Bugs(
+            val type: String,
+            val contents: String,
+            val registeredAt: String,
+            val status: String
+        )
+    }
 }
