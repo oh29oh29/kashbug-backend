@@ -36,6 +36,6 @@ POST http://localhost:8080/api/v1/login
 Content-Type: application/json
 
 {
-  "id": "test",
-  "password": "1234"
+  "id": "kashbug",
+  "password": "k@shbug892931"
 }

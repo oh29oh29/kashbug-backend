@@ -31,6 +31,9 @@ class Project(
     val url: String?,
 
     @Column
+    val imageUrl: String?,
+
+    @Column
     @Convert(converter = StatusTypeConverter::class)
     val status: StatusType,
 
@@ -73,6 +76,7 @@ class Project(
             "reward='$reward', " +
             "rewardDuration='$rewardDuration', " +
             "url=$url, " +
+            "imageUrl=$imageUrl, " +
             "status='$status', " +
             "startAt='$startAt', " +
             "deadlineAt='$deadlineAt', " +

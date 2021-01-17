@@ -1,7 +1,7 @@
 ### 프로젝트 등록
 POST http://localhost:8080/api/v1/enterprise/project
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjEwNDU2NDg5LCJleHAiOjE2MTA0NTczODl9.rx5mhe2CukJQ4FHUpxXraMYn3QTOmIIG4zmJM6u8ha2eiky68HnWIAwrUv0UKNyd
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwODU2MDE4LCJleHAiOjE2MTA4NTY5MTh9.x8q9oIkvYz5D-1CT5FSjNpxouIV3QBJCPn7g2KSMF-RmkN_SZHqY3kWIgPkQrwzX
 
 {
   "name": "테스트",
@@ -13,3 +13,8 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjEwNDU2N
   "profileImageUrl": "",
   "deadlineAt": "20210131235959"
 }
+
+### 프로젝트 상세 조회
+GET http://localhost:8080/api/v1/enterprise/project?projectId=ca419db7-cbe3-42cb-a489-56cb5749a147
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwODU2MDE4LCJleHAiOjE2MTA4NTY5MTh9.x8q9oIkvYz5D-1CT5FSjNpxouIV3QBJCPn7g2KSMF-RmkN_SZHqY3kWIgPkQrwzX

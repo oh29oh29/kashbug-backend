@@ -33,12 +33,12 @@ class LoginApplicationService(
     private fun joinIndividual(request: LoginRequest.Join) {
         request.gender ?: run {
             log.debug("성별이 비어져 있습니다.")
-            throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
+            throw KashbugException(ResponseCode.BAD_REQUEST)
         }
 
         if (request.birthYear.isNullOrBlank()) {
             log.error("출생 연도가 비어져 있습니다.")
-            throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
+            throw KashbugException(ResponseCode.BAD_REQUEST)
         }
 
         if (memberService.existId(request.id)) {
@@ -68,7 +68,7 @@ class LoginApplicationService(
     private fun joinEnterprise(request: LoginRequest.Join) {
         request.introduce ?: run {
             log.debug("소개가 비어져 있습니다.")
-            throw KashbugException(ResponseCode.STATUS_BAD_REQUEST)
+            throw KashbugException(ResponseCode.BAD_REQUEST)
         }
 
         if (enterpriseService.existId(request.id)) {
