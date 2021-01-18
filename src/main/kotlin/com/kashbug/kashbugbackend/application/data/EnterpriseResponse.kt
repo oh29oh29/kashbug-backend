@@ -10,6 +10,7 @@ class EnterpriseResponse {
         val projects: List<Project>
     ) {
         data class Project(
+            val id: String,
             val name: String,
             val category: List<InterestCode>,
             val bugCount: Int,

@@ -55,6 +55,7 @@ class EnterpriseApplicationService(
                 val interests = interestService.get(project.id).map { interest -> interest.code }
                 // TODO: 버그 카운트 조회
                 EnterpriseResponse.GetProjects.Project(
+                    project.id,
                     project.name,
                     interests,
                     10,
