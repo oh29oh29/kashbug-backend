@@ -3,10 +3,10 @@ package com.kashbug.kashbugbackend.application
 import com.kashbug.kashbugbackend.application.data.LoginRequest
 import com.kashbug.kashbugbackend.application.data.LoginResponse
 import com.kashbug.kashbugbackend.config.jwt.JwtTokenProvider
-import com.kashbug.kashbugbackend.domain.enterprise.EnterpriseService
-import com.kashbug.kashbugbackend.domain.member.MemberService
-import com.kashbug.kashbugbackend.domain.member.data.AccountType
-import com.kashbug.kashbugbackend.domain.member.data.SignUpType
+import com.kashbug.kashbugbackend.domain.user.service.EnterpriseService
+import com.kashbug.kashbugbackend.domain.user.service.MemberService
+import com.kashbug.kashbugbackend.domain.user.value.AccountType
+import com.kashbug.kashbugbackend.domain.user.value.SignUpType
 import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import org.slf4j.LoggerFactory

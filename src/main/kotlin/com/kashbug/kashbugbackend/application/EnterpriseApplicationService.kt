@@ -2,9 +2,9 @@ package com.kashbug.kashbugbackend.application
 
 import com.kashbug.kashbugbackend.application.data.EnterpriseRequest
 import com.kashbug.kashbugbackend.application.data.EnterpriseResponse
-import com.kashbug.kashbugbackend.domain.enterprise.EnterpriseService
-import com.kashbug.kashbugbackend.domain.interest.InterestService
-import com.kashbug.kashbugbackend.domain.project.ProjectService
+import com.kashbug.kashbugbackend.domain.common.service.InterestService
+import com.kashbug.kashbugbackend.domain.project.service.ProjectService
+import com.kashbug.kashbugbackend.domain.user.service.EnterpriseService
 import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import com.kashbug.kashbugbackend.toBasicString

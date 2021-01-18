@@ -1,7 +1,7 @@
 package com.kashbug.kashbugbackend.config.jwt
 
-import com.kashbug.kashbugbackend.domain.enterprise.EnterpriseService
-import com.kashbug.kashbugbackend.domain.member.MemberService
+import com.kashbug.kashbugbackend.domain.user.service.EnterpriseService
+import com.kashbug.kashbugbackend.domain.user.service.MemberService
 import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import org.springframework.security.core.userdetails.User

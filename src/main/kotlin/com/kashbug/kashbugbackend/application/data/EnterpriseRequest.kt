@@ -1,7 +1,7 @@
 package com.kashbug.kashbugbackend.application.data
 
-import com.kashbug.kashbugbackend.domain.interest.data.InterestCode
-import com.kashbug.kashbugbackend.domain.project.data.StatusType
+import com.kashbug.kashbugbackend.domain.common.value.InterestCode
+import com.kashbug.kashbugbackend.domain.project.value.StatusType
 
 class EnterpriseRequest {
 

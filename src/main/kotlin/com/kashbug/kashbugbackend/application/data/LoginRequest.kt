@@ -1,7 +1,7 @@
 package com.kashbug.kashbugbackend.application.data
 
-import com.kashbug.kashbugbackend.domain.member.data.AccountType
-import com.kashbug.kashbugbackend.domain.member.data.GenderType
+import com.kashbug.kashbugbackend.domain.user.value.AccountType
+import com.kashbug.kashbugbackend.domain.user.value.GenderType
 
 class LoginRequest {
 
