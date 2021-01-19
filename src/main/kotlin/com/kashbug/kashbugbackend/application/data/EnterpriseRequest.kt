@@ -1,6 +1,7 @@
 package com.kashbug.kashbugbackend.application.data
 
 import com.kashbug.kashbugbackend.domain.common.value.InterestCode
+import com.kashbug.kashbugbackend.domain.project.value.BugType
 import com.kashbug.kashbugbackend.domain.project.value.StatusType
 
 class EnterpriseRequest {
@@ -20,5 +21,13 @@ class EnterpriseRequest {
 
     data class GetProject(
         val projectId: String
+    )
+
+    class RegisterBug(
+        val projectId: String,
+        val title: String,
+        val contents: String,
+        val type: BugType,
+        val imageUrl: List<String>?
     )
 }

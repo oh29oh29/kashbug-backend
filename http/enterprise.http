@@ -1,7 +1,7 @@
 ### 프로젝트 등록
-POST http://localhost:8080/api/v1/enterprise/project
+POST {{host}}/api/v1/enterprise/project
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwODk2OTU0LCJleHAiOjE2MTA4OTc4NTR9.jbgFLrBLXC74WlsTZq_kbOCx6BjS93yF4WHjMdDI97Q1pMXiEYSt07CHYLrV0DeI
+Authorization: Bearer {{authenticationKey}}
 
 {
   "name": "테스트",
@@ -16,11 +16,24 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwO
 
 
 ### 프로젝트 리스트 조회
-GET http://localhost:8080/api/v1/enterprise/projects
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwODk2OTU0LCJleHAiOjE2MTA4OTc4NTR9.jbgFLrBLXC74WlsTZq_kbOCx6BjS93yF4WHjMdDI97Q1pMXiEYSt07CHYLrV0DeI
+GET {{host}}/api/v1/enterprise/projects
+Authorization: Bearer {{authenticationKey}}
 
 
 ### 프로젝트 상세 조회
-GET http://localhost:8080/api/v1/enterprise/project?projectId=ca419db7-cbe3-42cb-a489-56cb5749a147
+GET {{host}}/api/v1/enterprise/project?projectId=ca419db7-cbe3-42cb-a489-56cb5749a147
+Authorization: Bearer {{authenticationKey}}
+
+
+### 버그 등록
+POST {{host}}/api/v1/enterprise/project/bug
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwODU2MDE4LCJleHAiOjE2MTA4NTY5MTh9.x8q9oIkvYz5D-1CT5FSjNpxouIV3QBJCPn7g2KSMF-RmkN_SZHqY3kWIgPkQrwzX
+Authorization: Bearer {{authenticationKey}}
+
+{
+  "projectId": "67f6736c-ad16-4889-9b07-1d74a1c61d6a",
+  "title": "버그 등록 제목 테스트",
+  "contents": "버그 등록 내용 테스트",
+  "type": "ETC",
+  "imageUrl": ["http://placehold.it/100", "http://placehold.it/101"]
+}

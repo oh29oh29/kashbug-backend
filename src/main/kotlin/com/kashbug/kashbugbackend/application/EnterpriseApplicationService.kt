@@ -3,6 +3,7 @@ package com.kashbug.kashbugbackend.application
 import com.kashbug.kashbugbackend.application.data.EnterpriseRequest
 import com.kashbug.kashbugbackend.application.data.EnterpriseResponse
 import com.kashbug.kashbugbackend.domain.common.service.InterestService
+import com.kashbug.kashbugbackend.domain.project.service.BugService
 import com.kashbug.kashbugbackend.domain.project.service.ProjectService
 import com.kashbug.kashbugbackend.domain.user.service.EnterpriseService
 import com.kashbug.kashbugbackend.error.exception.KashbugException
@@ -17,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional
 class EnterpriseApplicationService(
     private val enterpriseService: EnterpriseService,
     private val projectService: ProjectService,
-    private val interestService: InterestService
+    private val interestService: InterestService,
+    private val bugService: BugService
 ) {
 
     @Transactional
     fun registerProject(userId: String, request: EnterpriseRequest.RegisterProject) {
-
         if (!enterpriseService.existId(userId)) throw KashbugException(ResponseCode.NOT_ALLOWED_USER)
 
         val project = projectService.save(
@@ -79,12 +80,22 @@ class EnterpriseApplicationService(
             project.reward,
             project.rewardDuration,
             project.url,
-            toImageUrl(project.imageUrl),
+            project.imageUrl?.split(","),
             project.status,
             project.startAt?.toBasicString(),
             project.deadlineAt.toBasicString()
         )
     }
 
-    private fun toImageUrl(imageUrl: String?) = imageUrl?.split(",")
+    @Transactional
+    fun registerBug(userId: String, request: EnterpriseRequest.RegisterBug) {
+        bugService.save(
+            request.projectId,
+            userId,
+            request.type,
+            request.title,
+            request.contents,
+            request.imageUrl
+        )
+    }
 }

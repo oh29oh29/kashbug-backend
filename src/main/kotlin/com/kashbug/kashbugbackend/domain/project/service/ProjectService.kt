@@ -4,6 +4,7 @@ import com.kashbug.kashbugbackend.domain.project.entity.Project
 import com.kashbug.kashbugbackend.domain.project.repository.ProjectRepository
 import com.kashbug.kashbugbackend.domain.project.value.StatusType
 import com.kashbug.kashbugbackend.error.exception.KashbugException
+import com.kashbug.kashbugbackend.joinToStringWithRest
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -36,15 +37,13 @@ class ProjectService(
                 reward,
                 rewardDuration,
                 url,
-                toImageUrl(imageUrl),
+                imageUrl?.joinToStringWithRest(),
                 status,
                 startAt,
                 deadlineAt
             )
         )
     }
-
-    private fun toImageUrl(imageUrl: List<String>?) = imageUrl?.joinToString { "," }
 
     fun get(pageable: Pageable): Page<Project> {
         return projectRepository.findAll(pageable)

@@ -35,4 +35,10 @@ class EnterpriseController(
     fun getProject(userId: String, @PathVariable projectId: String): OkResponse<EnterpriseResponse.GetProject> {
         return OkResponse(enterpriseApplicationService.getProject(userId, projectId))
     }
+
+    @PostMapping("/project/bug")
+    fun registerBug(userId: String, @Validated @RequestBody request: EnterpriseRequest.RegisterBug): OkResponse<Void> {
+        enterpriseApplicationService.registerBug(userId, request)
+        return OkResponse()
+    }
 }

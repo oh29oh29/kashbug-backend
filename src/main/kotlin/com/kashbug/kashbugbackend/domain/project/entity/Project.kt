@@ -48,11 +48,11 @@ class Project(
     @Id
     val id: String = UUID.randomUUID().toString()
 
-    @Column(name = "modifiaction_datetime")
-    val modificationAt: LocalDateTime? = null
-
     @Column(name = "register_datetime")
     val registerAt: LocalDateTime = LocalDateTime.now()
+
+    @Column(name = "modifiaction_datetime")
+    val modificationAt: LocalDateTime? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
