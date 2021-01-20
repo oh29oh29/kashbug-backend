@@ -1,12 +1,13 @@
 package com.kashbug.kashbugbackend.application.data
 
 import com.kashbug.kashbugbackend.domain.common.value.InterestCode
+import com.kashbug.kashbugbackend.domain.project.value.BugType
 import com.kashbug.kashbugbackend.domain.project.value.StatusType
 
 class EnterpriseResponse {
 
     data class GetProjects(
-        val totalCount: Int,
+        val totalCount: Long,
         val projects: List<Project>
     ) {
         data class Project(
@@ -31,12 +32,23 @@ class EnterpriseResponse {
         val startAt: String?,
         val deadlineAt: String
     ) {
-
         data class Bugs(
             val type: String,
             val contents: String,
-            val registeredAt: String,
+            val registerAt: String,
             val status: String
+        )
+    }
+
+    data class GetBugs(
+        val totalCount: Long,
+        val bugs: List<Bug>
+    ) {
+        data class Bug(
+            val writer: String,
+            val title: String,
+            val type: BugType,
+            val registerAt: String
         )
     }
 

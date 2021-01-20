@@ -4,7 +4,7 @@ Content-Type: application/json
 Authorization: Bearer {{authenticationKey}}
 
 {
-  "name": "테스트",
+  "name": "테스트1",
   "category": ["GAME"],
   "contents": "1234",
   "reward": 10000,
@@ -21,7 +21,7 @@ Authorization: Bearer {{authenticationKey}}
 
 
 ### 프로젝트 상세 조회
-GET {{host}}/api/v1/enterprise/project?projectId=ca419db7-cbe3-42cb-a489-56cb5749a147
+GET {{host}}/api/v1/enterprise/project/9234fb12-ad15-4c79-a775-601e223662a2
 Authorization: Bearer {{authenticationKey}}
 
 
@@ -31,9 +31,14 @@ Content-Type: application/json
 Authorization: Bearer {{authenticationKey}}
 
 {
-  "projectId": "67f6736c-ad16-4889-9b07-1d74a1c61d6a",
+  "projectId": "e9ddcc1a-c31c-491a-834f-9226c792ee80",
   "title": "버그 등록 제목 테스트",
   "contents": "버그 등록 내용 테스트",
   "type": "ETC",
   "imageUrl": ["http://placehold.it/100", "http://placehold.it/101"]
 }
+
+
+### 버그 리스트 조회
+GET {{host}}/api/v1/enterprise/project/9234fb12-ad15-4c79-a775-601e223662a2/bugs
+Authorization: Bearer {{authenticationKey}}

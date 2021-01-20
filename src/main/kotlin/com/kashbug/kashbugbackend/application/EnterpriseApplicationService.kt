@@ -51,7 +51,7 @@ class EnterpriseApplicationService(
         val projects = projectService.get(pageable)
 
         return EnterpriseResponse.GetProjects(
-            projects.totalPages,
+            projects.totalElements,
             projects.map { project ->
                 val interests = interestService.get(project.id).map { interest -> interest.code }
                 // TODO: 버그 카운트 조회
@@ -96,6 +96,26 @@ class EnterpriseApplicationService(
             request.title,
             request.contents,
             request.imageUrl
+        )
+    }
+
+    fun getBugs(
+        projectId: String,
+        pageable: Pageable
+    ): EnterpriseResponse.GetBugs {
+        val bugs = bugService.get(projectId, pageable)
+
+        // TODO: 상태 필드 추가
+        return EnterpriseResponse.GetBugs(
+            bugs.totalElements,
+            bugs.map {
+                EnterpriseResponse.GetBugs.Bug(
+                    it.writerId,
+                    it.title,
+                    it.type,
+                    it.registerAt.toBasicString()
+                )
+            }.toList()
         )
     }
 }

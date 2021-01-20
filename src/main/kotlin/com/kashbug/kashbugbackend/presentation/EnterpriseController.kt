@@ -16,7 +16,10 @@ class EnterpriseController(
 ) {
 
     @PostMapping("/project")
-    fun registerProject(userId: String, @Validated @RequestBody request: EnterpriseRequest.RegisterProject): OkResponse<Void> {
+    fun registerProject(
+        userId: String,
+        @Validated @RequestBody request: EnterpriseRequest.RegisterProject
+    ): OkResponse<Void> {
         enterpriseApplicationService.registerProject(userId, request)
         return OkResponse()
     }
@@ -27,18 +30,51 @@ class EnterpriseController(
         @RequestParam(required = false, defaultValue = "10") size: String,
         @RequestParam(required = false, defaultValue = "registerAt") sortBy: String
     ): OkResponse<EnterpriseResponse.GetProjects> {
-        val pageRequest = PageRequest.of(page.toInt(), size.toInt(), Sort.by(sortBy).descending())
-        return OkResponse(enterpriseApplicationService.getProjects(pageRequest))
+        return OkResponse(
+            enterpriseApplicationService.getProjects(
+                PageRequest.of(
+                    page.toInt(),
+                    size.toInt(),
+                    Sort.by(sortBy).descending()
+                )
+            )
+        )
     }
 
     @GetMapping("/project/{projectId}")
-    fun getProject(userId: String, @PathVariable projectId: String): OkResponse<EnterpriseResponse.GetProject> {
+    fun getProject(
+        userId: String,
+        @PathVariable projectId: String
+    ): OkResponse<EnterpriseResponse.GetProject> {
         return OkResponse(enterpriseApplicationService.getProject(userId, projectId))
     }
 
     @PostMapping("/project/bug")
-    fun registerBug(userId: String, @Validated @RequestBody request: EnterpriseRequest.RegisterBug): OkResponse<Void> {
+    fun registerBug(
+        userId: String,
+        @Validated @RequestBody request: EnterpriseRequest.RegisterBug
+    ): OkResponse<Void> {
         enterpriseApplicationService.registerBug(userId, request)
         return OkResponse()
+    }
+
+    @GetMapping("/project/{projectId}/bugs")
+    fun getBugs(
+        userId: String,
+        @PathVariable projectId: String,
+        @RequestParam(required = false, defaultValue = "0") page: String,
+        @RequestParam(required = false, defaultValue = "10") size: String,
+        @RequestParam(required = false, defaultValue = "registerAt") sortBy: String
+    ): OkResponse<EnterpriseResponse.GetBugs> {
+        return OkResponse(
+            enterpriseApplicationService.getBugs(
+                projectId,
+                PageRequest.of(
+                    page.toInt(),
+                    size.toInt(),
+                    Sort.by(sortBy).descending()
+                )
+            )
+        )
     }
 }
