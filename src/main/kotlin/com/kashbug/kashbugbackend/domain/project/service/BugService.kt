@@ -40,4 +40,8 @@ class BugService(
     ): Page<Bug> {
         return bugRepository.findByProjectId(projectId, pageable)
     }
+
+    fun count(projectId: String): Int {
+        return bugRepository.countByProjectId(projectId)
+    }
 }

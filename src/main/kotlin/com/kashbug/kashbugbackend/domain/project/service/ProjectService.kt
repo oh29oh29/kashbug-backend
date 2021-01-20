@@ -45,8 +45,11 @@ class ProjectService(
         )
     }
 
-    fun get(pageable: Pageable): Page<Project> {
-        return projectRepository.findAll(pageable)
+    fun get(
+        ownerId: String,
+        pageable: Pageable
+    ): Page<Project> {
+        return projectRepository.findByOwnerId(ownerId, pageable)
     }
 
     fun get(

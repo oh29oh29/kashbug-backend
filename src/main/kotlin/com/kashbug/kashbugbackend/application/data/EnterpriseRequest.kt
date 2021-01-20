@@ -24,7 +24,6 @@ class EnterpriseRequest {
     )
 
     class RegisterBug(
-        val projectId: String,
         val title: String,
         val contents: String,
         val type: BugType,

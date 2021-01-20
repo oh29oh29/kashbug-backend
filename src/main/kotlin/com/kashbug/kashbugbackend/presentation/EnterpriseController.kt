@@ -26,12 +26,14 @@ class EnterpriseController(
 
     @GetMapping("/projects")
     fun getProjects(
+        userId: String,
         @RequestParam(required = false, defaultValue = "0") page: String,
         @RequestParam(required = false, defaultValue = "10") size: String,
         @RequestParam(required = false, defaultValue = "registerAt") sortBy: String
     ): OkResponse<EnterpriseResponse.GetProjects> {
         return OkResponse(
             enterpriseApplicationService.getProjects(
+                userId,
                 PageRequest.of(
                     page.toInt(),
                     size.toInt(),
@@ -49,12 +51,13 @@ class EnterpriseController(
         return OkResponse(enterpriseApplicationService.getProject(userId, projectId))
     }
 
-    @PostMapping("/project/bug")
+    @PostMapping("/project/{projectId}/bug")
     fun registerBug(
         userId: String,
+        @PathVariable projectId: String,
         @Validated @RequestBody request: EnterpriseRequest.RegisterBug
     ): OkResponse<Void> {
-        enterpriseApplicationService.registerBug(userId, request)
+        enterpriseApplicationService.registerBug(userId, projectId, request)
         return OkResponse()
     }
 

@@ -47,19 +47,23 @@ class EnterpriseApplicationService(
         }
     }
 
-    fun getProjects(pageable: Pageable): EnterpriseResponse.GetProjects {
-        val projects = projectService.get(pageable)
+    fun getProjects(
+        ownerId: String,
+        pageable: Pageable
+    ): EnterpriseResponse.GetProjects {
+        val projects = projectService.get(ownerId, pageable)
 
         return EnterpriseResponse.GetProjects(
             projects.totalElements,
             projects.map { project ->
                 val interests = interestService.get(project.id).map { interest -> interest.code }
-                // TODO: 버그 카운트 조회
+                val bugCount = bugService.count(project.id)
+
                 EnterpriseResponse.GetProjects.Project(
                     project.id,
                     project.name,
                     interests,
-                    10,
+                    bugCount,
                     project.startAt?.toBasicString(),
                     project.deadlineAt.toBasicString(),
                 )
@@ -67,11 +71,12 @@ class EnterpriseApplicationService(
         )
     }
 
-    fun getProject(userId: String, projectId: String): EnterpriseResponse.GetProject {
+    fun getProject(
+        userId: String,
+        projectId: String
+    ): EnterpriseResponse.GetProject {
         val project = projectService.get(userId, projectId)
         val interests = interestService.get(projectId).map { it.code }
-
-        // TODO: 버그 리스트 조회
 
         return EnterpriseResponse.GetProject(
             project.name,
@@ -88,9 +93,13 @@ class EnterpriseApplicationService(
     }
 
     @Transactional
-    fun registerBug(userId: String, request: EnterpriseRequest.RegisterBug) {
+    fun registerBug(
+        userId: String,
+        projectId: String,
+        request: EnterpriseRequest.RegisterBug
+    ) {
         bugService.save(
-            request.projectId,
+            projectId,
             userId,
             request.type,
             request.title,
