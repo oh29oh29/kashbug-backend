@@ -75,8 +75,9 @@ class EnterpriseApplicationService(
         userId: String,
         projectId: String
     ): EnterpriseResponse.GetProject {
-        val project = projectService.get(userId, projectId)
+        val project = projectService.get(projectId) ?: throw KashbugException(ResponseCode.BAD_REQUEST)
         val interests = interestService.get(projectId).map { it.code }
+        val isOwn = project.ownerId == userId
 
         return EnterpriseResponse.GetProject(
             project.id,
@@ -89,7 +90,8 @@ class EnterpriseApplicationService(
             project.imageUrl?.split(","),
             project.status,
             project.startAt?.toBasicString(),
-            project.deadlineAt.toBasicString()
+            project.deadlineAt.toBasicString(),
+            isOwn
         )
     }
 

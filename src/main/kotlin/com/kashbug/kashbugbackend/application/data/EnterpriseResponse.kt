@@ -31,7 +31,8 @@ class EnterpriseResponse {
         val imageUrl: List<String>?,
         val status: StatusType,
         val startAt: String?,
-        val deadlineAt: String
+        val deadlineAt: String,
+        val isOwn: Boolean
     ) {
         data class Bugs(
             val type: String,

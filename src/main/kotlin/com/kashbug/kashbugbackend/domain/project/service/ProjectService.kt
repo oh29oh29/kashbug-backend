@@ -3,9 +3,7 @@ package com.kashbug.kashbugbackend.domain.project.service
 import com.kashbug.kashbugbackend.domain.project.entity.Project
 import com.kashbug.kashbugbackend.domain.project.repository.ProjectRepository
 import com.kashbug.kashbugbackend.domain.project.value.StatusType
-import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.joinToStringWithRest
-import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
@@ -53,12 +51,8 @@ class ProjectService(
     }
 
     fun get(
-        ownerId: String,
         projectId: String
-    ): Project {
-        val project = projectRepository.findByIdOrNull(projectId) ?: throw KashbugException(ResponseCode.BAD_REQUEST)
-        if (project.ownerId != ownerId) throw KashbugException(ResponseCode.NOT_ALLOWED_USER)
-
-        return project
+    ): Project? {
+        return projectRepository.findByIdOrNull(projectId)
     }
 }
