@@ -80,4 +80,14 @@ class EnterpriseController(
             )
         )
     }
+
+    @GetMapping("/project/bug/{bugId}")
+    fun getBug(
+        userId: String,
+        @PathVariable bugId: String
+    ): OkResponse<EnterpriseResponse.GetBug> {
+        return OkResponse(
+            enterpriseApplicationService.getBug(userId, bugId)
+        )
+    }
 }

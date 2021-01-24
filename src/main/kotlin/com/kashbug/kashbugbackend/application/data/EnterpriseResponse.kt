@@ -55,4 +55,15 @@ class EnterpriseResponse {
         )
     }
 
+    data class GetBug(
+        val id: String,
+        val writer: String,
+        val title: String,
+        val contents: String,
+        val type: BugType,
+        val imageUrl: List<String>?,
+        val registerAt: String,
+        val isOwn: Boolean
+    )
+
 }

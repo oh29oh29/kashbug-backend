@@ -131,4 +131,23 @@ class EnterpriseApplicationService(
             }.toList()
         )
     }
+
+    fun getBug(
+        userId: String,
+        bugId: String
+    ): EnterpriseResponse.GetBug {
+        val bug = bugService.get(bugId) ?: throw KashbugException(ResponseCode.BAD_REQUEST)
+        val isOwn = bug.writerId == userId
+
+        return EnterpriseResponse.GetBug(
+            bug.id,
+            bug.writerId,
+            bug.title,
+            bug.contents,
+            bug.type,
+            bug.imageUrl?.split(","),
+            bug.registerAt.toBasicString(),
+            isOwn
+        )
+    }
 }

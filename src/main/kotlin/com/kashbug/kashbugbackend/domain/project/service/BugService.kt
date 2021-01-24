@@ -6,6 +6,7 @@ import com.kashbug.kashbugbackend.domain.project.value.BugType
 import com.kashbug.kashbugbackend.joinToStringWithRest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
@@ -39,6 +40,12 @@ class BugService(
         pageable: Pageable
     ): Page<Bug> {
         return bugRepository.findByProjectId(projectId, pageable)
+    }
+
+    fun get(
+        bugId: String
+    ): Bug? {
+        return bugRepository.findByIdOrNull(bugId)
     }
 
     fun count(projectId: String): Int {

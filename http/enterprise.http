@@ -26,7 +26,7 @@ Authorization: Bearer {{authenticationKey}}
 
 
 ### 버그 등록
-POST {{host}}/api/v1/enterprise/project/003b9b19-dc89-4f98-9993-50e7c3bf2ca7/bug
+POST {{host}}/api/v1/enterprise/project/06acb819-5c08-4a50-9b20-dec73f704515/bug
 Content-Type: application/json
 Authorization: Bearer {{authenticationKey}}
 
@@ -39,5 +39,10 @@ Authorization: Bearer {{authenticationKey}}
 
 
 ### 버그 리스트 조회
-GET {{host}}/api/v1/enterprise/project/003b9b19-dc89-4f98-9993-50e7c3bf2ca7/bugs
+GET {{host}}/api/v1/enterprise/project/06acb819-5c08-4a50-9b20-dec73f704515/bugs
+Authorization: Bearer {{authenticationKey}}
+
+
+### 버그 상세 조회
+GET {{host}}/api/v1/enterprise/project/bug/6c1e8bea-4ee4-468b-af00-5366f8a76fea
 Authorization: Bearer {{authenticationKey}}
