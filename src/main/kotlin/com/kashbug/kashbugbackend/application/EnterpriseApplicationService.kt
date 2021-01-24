@@ -120,6 +120,7 @@ class EnterpriseApplicationService(
             bugs.totalElements,
             bugs.map {
                 EnterpriseResponse.GetBugs.Bug(
+                    it.id,
                     it.writerId,
                     it.title,
                     it.type,

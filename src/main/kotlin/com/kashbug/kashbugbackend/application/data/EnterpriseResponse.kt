@@ -46,6 +46,7 @@ class EnterpriseResponse {
         val bugs: List<Bug>
     ) {
         data class Bug(
+            val id: String,
             val writer: String,
             val title: String,
             val type: BugType,
