@@ -79,6 +79,7 @@ class EnterpriseApplicationService(
         val interests = interestService.get(projectId).map { it.code }
 
         return EnterpriseResponse.GetProject(
+            project.id,
             project.name,
             interests,
             project.contents,

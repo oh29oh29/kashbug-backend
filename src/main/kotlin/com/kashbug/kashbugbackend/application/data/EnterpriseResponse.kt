@@ -21,6 +21,7 @@ class EnterpriseResponse {
     }
 
     data class GetProject(
+        val id: String,
         val name: String,
         val category: List<InterestCode>?,
         val contents: String,
