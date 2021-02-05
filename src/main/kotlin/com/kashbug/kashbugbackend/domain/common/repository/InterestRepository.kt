@@ -7,4 +7,5 @@ interface InterestRepository : JpaRepository<Interest, Long> {
 
     fun findByTargetId(targetId: String): List<Interest>
 
+    fun deleteByTargetId(targetId: String): Void
 }

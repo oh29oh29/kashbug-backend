@@ -15,7 +15,7 @@ class Enterprise(
     val name: String,
 
     @Column
-    override val password: String,
+    override var password: String,
 
     @Column
     val email: String,

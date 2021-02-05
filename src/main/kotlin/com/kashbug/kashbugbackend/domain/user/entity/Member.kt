@@ -20,7 +20,7 @@ class Member(
     val name: String,
 
     @Column
-    override val password: String,
+    override var password: String,
 
     @Column
     @Convert(converter = GenderTypeConverter::class)
