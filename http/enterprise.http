@@ -1,10 +1,10 @@
 ### 프로젝트 등록
-POST http://localhost:8080/api/v1/enterprise/project
+POST {{host}}/api/v1/enterprise/project
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwODU2MDE4LCJleHAiOjE2MTA4NTY5MTh9.x8q9oIkvYz5D-1CT5FSjNpxouIV3QBJCPn7g2KSMF-RmkN_SZHqY3kWIgPkQrwzX
+Authorization: Bearer {{authenticationKey}}
 
 {
-  "name": "테스트",
+  "name": "테스트2",
   "category": ["GAME"],
   "contents": "1234",
   "reward": 10000,
@@ -14,7 +14,35 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwO
   "deadlineAt": "20210131235959"
 }
 
+
+### 프로젝트 리스트 조회
+GET {{host}}/api/v1/enterprise/projects
+Authorization: Bearer {{authenticationKey}}
+
+
 ### 프로젝트 상세 조회
-GET http://localhost:8080/api/v1/enterprise/project?projectId=ca419db7-cbe3-42cb-a489-56cb5749a147
+GET {{host}}/api/v1/enterprise/project/003b9b19-dc89-4f98-9993-50e7c3bf2ca7
+Authorization: Bearer {{authenticationKey}}
+
+
+### 버그 등록
+POST {{host}}/api/v1/enterprise/project/06acb819-5c08-4a50-9b20-dec73f704515/bug
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJrYXNoYnVnIiwiaWF0IjoxNjEwODU2MDE4LCJleHAiOjE2MTA4NTY5MTh9.x8q9oIkvYz5D-1CT5FSjNpxouIV3QBJCPn7g2KSMF-RmkN_SZHqY3kWIgPkQrwzX
+Authorization: Bearer {{authenticationKey}}
+
+{
+  "title": "버그 등록 제목 테스트",
+  "contents": "버그 등록 내용 테스트",
+  "type": "ETC",
+  "imageUrl": ["http://placehold.it/100", "http://placehold.it/101"]
+}
+
+
+### 버그 리스트 조회
+GET {{host}}/api/v1/enterprise/project/06acb819-5c08-4a50-9b20-dec73f704515/bugs
+Authorization: Bearer {{authenticationKey}}
+
+
+### 버그 상세 조회
+GET {{host}}/api/v1/enterprise/project/bug/6c1e8bea-4ee4-468b-af00-5366f8a76fea
+Authorization: Bearer {{authenticationKey}}

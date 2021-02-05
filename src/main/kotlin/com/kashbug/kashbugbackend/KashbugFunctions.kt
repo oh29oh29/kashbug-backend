@@ -8,3 +8,5 @@ fun LocalDateTime.toBasicString(): String =
 
 fun String.toLocalDateTime(): LocalDateTime =
     LocalDateTime.parse(this, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
+
+fun Collection<String>.joinToStringWithRest(): String = if (this.size == 1) this.first() else this.joinToString(separator = ",")
