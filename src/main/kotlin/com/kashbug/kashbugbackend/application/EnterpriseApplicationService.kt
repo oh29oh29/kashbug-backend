@@ -23,7 +23,10 @@ class EnterpriseApplicationService(
 ) {
 
     @Transactional
-    fun registerProject(userId: String, request: EnterpriseRequest.RegisterProject) {
+    fun registerProject(
+        userId: String,
+        request: EnterpriseRequest.RegisterProject
+    ) {
         if (!enterpriseService.existId(userId)) throw KashbugException(ResponseCode.NOT_ALLOWED_USER)
 
         val project = projectService.save(
@@ -42,6 +45,26 @@ class EnterpriseApplicationService(
         request.category?.let {
             interestService.save(
                 project.id,
+                it
+            )
+        }
+    }
+
+    @Transactional
+    fun updateProject(
+        userId: String,
+        projectId: String,
+        request: EnterpriseRequest.UpdateProject
+    ) {
+        projectService.update(
+            request.name,
+            request.contents
+        )
+
+        interestService.deleteAll(projectId)
+        request.category?.let {
+            interestService.save(
+                projectId,
                 it
             )
         }
@@ -148,6 +171,17 @@ class EnterpriseApplicationService(
             bug.imageUrl?.split(","),
             bug.registerAt.toBasicString(),
             isOwn
+        )
+    }
+
+    fun updateBug(
+        userId: String,
+        bugId: String,
+        request: EnterpriseRequest.UpdateBug
+    ) {
+        // TODO: 버그 수정 로직
+        bugService.update(
+            bugId
         )
     }
 }

@@ -21,6 +21,10 @@ class InterestService(
         )
     }
 
+    fun deleteAll(targetId: String) {
+        interestRepository.deleteByTargetId(targetId)
+    }
+
     fun get(
         targetId: String
     ): List<Interest> {

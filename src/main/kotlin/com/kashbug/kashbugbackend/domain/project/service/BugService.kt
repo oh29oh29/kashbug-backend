@@ -3,7 +3,9 @@ package com.kashbug.kashbugbackend.domain.project.service
 import com.kashbug.kashbugbackend.domain.project.entity.Bug
 import com.kashbug.kashbugbackend.domain.project.repository.BugRepository
 import com.kashbug.kashbugbackend.domain.project.value.BugType
+import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.joinToStringWithRest
+import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
@@ -33,6 +35,15 @@ class BugService(
                 imageUrl?.joinToStringWithRest()
             )
         )
+    }
+
+    fun update(
+         bugId: String,
+         type: BugType?
+    ) {
+        bugRepository.findByIdOrNull(bugId)?.apply {
+            // TODO: 수정 필드 정의
+        } ?: throw KashbugException(ResponseCode.BAD_REQUEST)
     }
 
     fun get(

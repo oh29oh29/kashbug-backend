@@ -21,20 +21,20 @@ class Bug(
 
     @Column
     @Convert(converter = BugTypeConverter::class)
-    val type: BugType,
+    var type: BugType,
 
     @Column
-    val title: String,
+    var title: String,
 
     @Column
-    val contents: String,
+    var contents: String,
 
     @Column
-    val imageUrl: String?,
+    var imageUrl: String?,
 
     @Column
     @Convert(converter = BooleanConverter::class)
-    val isAccepted: Boolean = false
+    var isAccepted: Boolean = false
 
 ) {
     @Id
@@ -44,10 +44,10 @@ class Bug(
     val registerAt: LocalDateTime = LocalDateTime.now()
 
     @Column(name = "modifiaction_datetime")
-    val modificationAt: LocalDateTime? = null
+    var modificationAt: LocalDateTime? = null
 
     @Column(name = "adoption_datetime")
-    val adoptAt: LocalDateTime? = null
+    var adoptAt: LocalDateTime? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

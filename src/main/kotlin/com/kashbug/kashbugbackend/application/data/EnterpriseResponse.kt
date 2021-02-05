@@ -33,14 +33,7 @@ class EnterpriseResponse {
         val startAt: String?,
         val deadlineAt: String,
         val isOwn: Boolean
-    ) {
-        data class Bugs(
-            val type: String,
-            val contents: String,
-            val registerAt: String,
-            val status: String
-        )
-    }
+    )
 
     data class GetBugs(
         val totalCount: Long,

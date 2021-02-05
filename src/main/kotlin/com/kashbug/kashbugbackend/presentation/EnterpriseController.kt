@@ -51,6 +51,16 @@ class EnterpriseController(
         return OkResponse(enterpriseApplicationService.getProject(userId, projectId))
     }
 
+    @PutMapping("/project/{projectId}")
+    fun updateProject(
+        userId: String,
+        @PathVariable projectId: String,
+        @Validated @RequestBody request: EnterpriseRequest.UpdateProject
+    ): OkResponse<Void> {
+        enterpriseApplicationService.updateProject(userId, projectId, request)
+        return OkResponse()
+    }
+
     @PostMapping("/project/{projectId}/bug")
     fun registerBug(
         userId: String,
@@ -90,4 +100,15 @@ class EnterpriseController(
             enterpriseApplicationService.getBug(userId, bugId)
         )
     }
+
+    @PutMapping("/project/bug/{bugId}")
+    fun updateBug(
+        userId: String,
+        @PathVariable bugId: String,
+        @Validated @RequestBody request: EnterpriseRequest.UpdateBug
+    ): OkResponse<Void> {
+        enterpriseApplicationService.updateBug(userId, bugId, request)
+        return OkResponse()
+    }
+
 }
