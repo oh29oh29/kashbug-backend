@@ -57,8 +57,16 @@ class EnterpriseApplicationService(
         request: EnterpriseRequest.UpdateProject
     ) {
         projectService.update(
+            projectId,
             request.name,
-            request.contents
+            request.contents,
+            request.reward,
+            request.rewardDuration,
+            request.url,
+            request.imageUrl,
+            request.status,
+            request.startAt?.toLocalDateTime(),
+            request.deadlineAt.toLocalDateTime()
         )
 
         interestService.deleteAll(projectId)

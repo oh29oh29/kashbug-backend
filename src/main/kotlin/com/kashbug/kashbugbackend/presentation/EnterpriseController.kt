@@ -15,6 +15,9 @@ class EnterpriseController(
     private val enterpriseApplicationService: EnterpriseApplicationService
 ) {
 
+    /**
+     * 프로젝트 등록
+     * */
     @PostMapping("/project")
     fun registerProject(
         userId: String,
@@ -24,6 +27,9 @@ class EnterpriseController(
         return OkResponse()
     }
 
+    /**
+     * 프로젝트 리스트 조회
+     * */
     @GetMapping("/projects")
     fun getProjects(
         userId: String,
@@ -43,6 +49,9 @@ class EnterpriseController(
         )
     }
 
+    /**
+     * 프로젝트 상세 조회
+     * */
     @GetMapping("/project/{projectId}")
     fun getProject(
         userId: String,
@@ -51,6 +60,9 @@ class EnterpriseController(
         return OkResponse(enterpriseApplicationService.getProject(userId, projectId))
     }
 
+    /**
+     * 프로젝트 수정
+     * */
     @PutMapping("/project/{projectId}")
     fun updateProject(
         userId: String,

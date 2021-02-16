@@ -49,11 +49,26 @@ class ProjectService(
     @Transactional
     fun update(
         projectId: String,
-        contents: String
+        name: String,
+        contents: String,
+        reward: Int,
+        rewardDuration: Int,
+        url: String?,
+        imageUrl: List<String>?,
+        status: StatusType,
+        startAt: LocalDateTime?,
+        deadlineAt: LocalDateTime
     ) {
-        val project = projectRepository.findByIdOrNull(projectId)?.apply {
-            // TODO: 수정 필드들의 형태는?
-
+        projectRepository.findByIdOrNull(projectId)?.let {
+            it.name = name
+            it.contents = contents
+            it.reward = reward
+            it.rewardDuration = rewardDuration
+            it.url = url
+            it.imageUrl = imageUrl?.joinToStringWithRest()
+            it.status = status
+            it.startAt = startAt
+            it.deadlineAt = deadlineAt
         } ?: throw KashbugException(ResponseCode.BAD_REQUEST)
     }
 
