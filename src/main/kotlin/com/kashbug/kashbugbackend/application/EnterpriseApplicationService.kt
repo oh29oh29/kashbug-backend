@@ -187,9 +187,13 @@ class EnterpriseApplicationService(
         bugId: String,
         request: EnterpriseRequest.UpdateBug
     ) {
-        // TODO: 버그 수정 로직
         bugService.update(
-            bugId
+            userId,
+            bugId,
+            request.type,
+            request.title,
+            request.contents,
+            request.imageUrl
         )
     }
 }

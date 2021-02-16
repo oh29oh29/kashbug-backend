@@ -73,6 +73,9 @@ class EnterpriseController(
         return OkResponse()
     }
 
+    /**
+     * 버그 등록
+     * */
     @PostMapping("/project/{projectId}/bug")
     fun registerBug(
         userId: String,
@@ -83,6 +86,9 @@ class EnterpriseController(
         return OkResponse()
     }
 
+    /**
+     * 버그 리스트 조회
+     * */
     @GetMapping("/project/{projectId}/bugs")
     fun getBugs(
         userId: String,
@@ -103,6 +109,9 @@ class EnterpriseController(
         )
     }
 
+    /**
+     * 버그 상세 조회
+     * */
     @GetMapping("/project/bug/{bugId}")
     fun getBug(
         userId: String,
@@ -113,6 +122,9 @@ class EnterpriseController(
         )
     }
 
+    /**
+     * 버그 수정
+     * */
     @PutMapping("/project/bug/{bugId}")
     fun updateBug(
         userId: String,

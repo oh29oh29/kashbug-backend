@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class BugService(
@@ -38,12 +39,25 @@ class BugService(
     }
 
     fun update(
-         bugId: String,
-         type: BugType?
+        userId: String,
+        bugId: String,
+        type: BugType,
+        title: String,
+        contents: String,
+        imageUrl: List<String>?
     ) {
-        bugRepository.findByIdOrNull(bugId)?.apply {
-            // TODO: 수정 필드 정의
-        } ?: throw KashbugException(ResponseCode.BAD_REQUEST)
+        val bug = bugRepository.findByIdOrNull(bugId) ?: throw KashbugException(ResponseCode.BAD_REQUEST)
+        if (bug.writerId != userId) throw KashbugException(ResponseCode.NOT_ALLOWED_USER)
+
+        bug.apply {
+            this.type = type
+            this.title = title
+            this.contents = contents
+            this.imageUrl = imageUrl?.joinToStringWithRest()
+            this.modificationAt = LocalDateTime.now()
+        }
+
+        bugRepository.save(bug)
     }
 
     fun get(
