@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @Service
@@ -46,7 +45,6 @@ class ProjectService(
         )
     }
 
-    @Transactional
     fun update(
         projectId: String,
         name: String,
@@ -69,6 +67,9 @@ class ProjectService(
             it.status = status
             it.startAt = startAt
             it.deadlineAt = deadlineAt
+            it.modificationAt = LocalDateTime.now()
+
+            projectRepository.save(it)
         } ?: throw KashbugException(ResponseCode.BAD_REQUEST)
     }
 
