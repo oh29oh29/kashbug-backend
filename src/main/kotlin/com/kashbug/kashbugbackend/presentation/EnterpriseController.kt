@@ -15,6 +15,9 @@ class EnterpriseController(
     private val enterpriseApplicationService: EnterpriseApplicationService
 ) {
 
+    /**
+     * 프로젝트 등록
+     * */
     @PostMapping("/project")
     fun registerProject(
         userId: String,
@@ -24,6 +27,9 @@ class EnterpriseController(
         return OkResponse()
     }
 
+    /**
+     * 프로젝트 리스트 조회
+     * */
     @GetMapping("/projects")
     fun getProjects(
         userId: String,
@@ -43,6 +49,9 @@ class EnterpriseController(
         )
     }
 
+    /**
+     * 프로젝트 상세 조회
+     * */
     @GetMapping("/project/{projectId}")
     fun getProject(
         userId: String,
@@ -51,6 +60,9 @@ class EnterpriseController(
         return OkResponse(enterpriseApplicationService.getProject(userId, projectId))
     }
 
+    /**
+     * 프로젝트 수정
+     * */
     @PutMapping("/project/{projectId}")
     fun updateProject(
         userId: String,
@@ -61,6 +73,9 @@ class EnterpriseController(
         return OkResponse()
     }
 
+    /**
+     * 버그 등록
+     * */
     @PostMapping("/project/{projectId}/bug")
     fun registerBug(
         userId: String,
@@ -71,6 +86,9 @@ class EnterpriseController(
         return OkResponse()
     }
 
+    /**
+     * 버그 리스트 조회
+     * */
     @GetMapping("/project/{projectId}/bugs")
     fun getBugs(
         userId: String,
@@ -91,6 +109,9 @@ class EnterpriseController(
         )
     }
 
+    /**
+     * 버그 상세 조회
+     * */
     @GetMapping("/project/bug/{bugId}")
     fun getBug(
         userId: String,
@@ -101,6 +122,9 @@ class EnterpriseController(
         )
     }
 
+    /**
+     * 버그 수정
+     * */
     @PutMapping("/project/bug/{bugId}")
     fun updateBug(
         userId: String,
@@ -109,6 +133,65 @@ class EnterpriseController(
     ): OkResponse<Void> {
         enterpriseApplicationService.updateBug(userId, bugId, request)
         return OkResponse()
+    }
+
+    /**
+     * 정산 리스트 조회 (기업 별)
+     * */
+    @GetMapping("/project/bugs/calculations")
+    fun getTotalAdoptedBugs(
+        userId: String,
+        @RequestParam(required = false, defaultValue = "0") page: String,
+        @RequestParam(required = false, defaultValue = "10") size: String,
+        @RequestParam(required = false, defaultValue = "registerAt") sortBy: String
+    ): OkResponse<EnterpriseResponse.GetAdoptedBugs> {
+        return OkResponse(
+            enterpriseApplicationService.getAdoptedBugsByEnterprise(
+                userId,
+                PageRequest.of(
+                    page.toInt(),
+                    size.toInt(),
+                    Sort.by(sortBy).descending()
+                )
+            )
+        )
+    }
+
+    /**
+     * 정산 리스트 조회 (프로젝트 별)
+     * */
+    @GetMapping("/project/{projectId}/bugs/calculations")
+    fun getAdoptedBugs(
+        userId: String,
+        @PathVariable projectId: String,
+        @RequestParam(required = false, defaultValue = "0") page: String,
+        @RequestParam(required = false, defaultValue = "10") size: String,
+        @RequestParam(required = false, defaultValue = "registerAt") sortBy: String
+    ): OkResponse<EnterpriseResponse.GetAdoptedBugs> {
+        return OkResponse(
+            enterpriseApplicationService.getAdoptedBugsByProject(
+                userId,
+                projectId,
+                PageRequest.of(
+                    page.toInt(),
+                    size.toInt(),
+                    Sort.by(sortBy).descending()
+                )
+            )
+        )
+    }
+
+    @GetMapping("/project/bug/calcuation/{bugId}")
+    fun getAdoptedBug(
+        userId: String,
+        @PathVariable bugId: String
+    ): OkResponse<EnterpriseResponse.GetAdoptedBug> {
+        return OkResponse(
+            enterpriseApplicationService.getAdoptedBug(
+                userId,
+                bugId
+            )
+        )
     }
 
 }

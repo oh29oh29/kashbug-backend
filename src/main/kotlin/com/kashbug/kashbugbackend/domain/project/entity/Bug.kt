@@ -1,7 +1,8 @@
 package com.kashbug.kashbugbackend.domain.project.entity
 
+import com.kashbug.kashbugbackend.domain.project.value.BugStatusType
 import com.kashbug.kashbugbackend.domain.project.value.BugType
-import com.kashbug.kashbugbackend.domain.project.value.converter.BooleanConverter
+import com.kashbug.kashbugbackend.domain.project.value.converter.BugStatusTypeConverter
 import com.kashbug.kashbugbackend.domain.project.value.converter.BugTypeConverter
 import java.time.LocalDateTime
 import java.util.*
@@ -33,8 +34,8 @@ class Bug(
     var imageUrl: String?,
 
     @Column
-    @Convert(converter = BooleanConverter::class)
-    var isAccepted: Boolean = false
+    @Convert(converter = BugStatusTypeConverter::class)
+    var status: BugStatusType = BugStatusType.UNCONFIRMED
 
 ) {
     @Id
@@ -70,7 +71,7 @@ class Bug(
             "title='$title', " +
             "contents='$contents', " +
             "imageUrl='$imageUrl', " +
-            "isAccepted=$isAccepted, " +
+            "status=$status, " +
             "id='$id', " +
             "registerAt=$registerAt, " +
             "modificationAt=$modificationAt, " +

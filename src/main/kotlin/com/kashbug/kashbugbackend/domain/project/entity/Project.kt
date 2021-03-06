@@ -13,35 +13,35 @@ import javax.persistence.Id
 class Project(
 
     @Column
-    val name: String,
+    var name: String,
 
     @Column
     val ownerId: String,
 
     @Column
-    val contents: String,
+    var contents: String,
 
     @Column
-    val reward: Int,
+    var reward: Int,
 
     @Column
-    val rewardDuration: Int,
+    var rewardDuration: Int,
 
     @Column
-    val url: String?,
+    var url: String?,
 
     @Column
-    val imageUrl: String?,
+    var imageUrl: String?,
 
     @Column
     @Convert(converter = StatusTypeConverter::class)
-    val status: StatusType,
+    var status: StatusType,
 
     @Column(name = "start_datetime")
-    val startAt: LocalDateTime?,
+    var startAt: LocalDateTime?,
 
     @Column(name = "deadline_datetime")
-    val deadlineAt: LocalDateTime
+    var deadlineAt: LocalDateTime
 
 ) {
 
@@ -52,7 +52,7 @@ class Project(
     val registerAt: LocalDateTime = LocalDateTime.now()
 
     @Column(name = "modifiaction_datetime")
-    val modificationAt: LocalDateTime? = null
+    var modificationAt: LocalDateTime? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
