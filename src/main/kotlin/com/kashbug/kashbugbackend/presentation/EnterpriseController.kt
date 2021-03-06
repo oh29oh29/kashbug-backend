@@ -135,4 +135,63 @@ class EnterpriseController(
         return OkResponse()
     }
 
+    /**
+     * 정산 리스트 조회 (기업 별)
+     * */
+    @GetMapping("/project/bugs/calculations")
+    fun getTotalAdoptedBugs(
+        userId: String,
+        @RequestParam(required = false, defaultValue = "0") page: String,
+        @RequestParam(required = false, defaultValue = "10") size: String,
+        @RequestParam(required = false, defaultValue = "registerAt") sortBy: String
+    ): OkResponse<EnterpriseResponse.GetAdoptedBugs> {
+        return OkResponse(
+            enterpriseApplicationService.getAdoptedBugsByEnterprise(
+                userId,
+                PageRequest.of(
+                    page.toInt(),
+                    size.toInt(),
+                    Sort.by(sortBy).descending()
+                )
+            )
+        )
+    }
+
+    /**
+     * 정산 리스트 조회 (프로젝트 별)
+     * */
+    @GetMapping("/project/{projectId}/bugs/calculations")
+    fun getAdoptedBugs(
+        userId: String,
+        @PathVariable projectId: String,
+        @RequestParam(required = false, defaultValue = "0") page: String,
+        @RequestParam(required = false, defaultValue = "10") size: String,
+        @RequestParam(required = false, defaultValue = "registerAt") sortBy: String
+    ): OkResponse<EnterpriseResponse.GetAdoptedBugs> {
+        return OkResponse(
+            enterpriseApplicationService.getAdoptedBugsByProject(
+                userId,
+                projectId,
+                PageRequest.of(
+                    page.toInt(),
+                    size.toInt(),
+                    Sort.by(sortBy).descending()
+                )
+            )
+        )
+    }
+
+    @GetMapping("/project/bug/calcuation/{bugId}")
+    fun getAdoptedBug(
+        userId: String,
+        @PathVariable bugId: String
+    ): OkResponse<EnterpriseResponse.GetAdoptedBug> {
+        return OkResponse(
+            enterpriseApplicationService.getAdoptedBug(
+                userId,
+                bugId
+            )
+        )
+    }
+
 }

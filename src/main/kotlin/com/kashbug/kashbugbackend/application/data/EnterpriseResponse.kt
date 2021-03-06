@@ -1,6 +1,7 @@
 package com.kashbug.kashbugbackend.application.data
 
 import com.kashbug.kashbugbackend.domain.common.value.InterestCode
+import com.kashbug.kashbugbackend.domain.project.value.BugStatusType
 import com.kashbug.kashbugbackend.domain.project.value.BugType
 import com.kashbug.kashbugbackend.domain.project.value.StatusType
 
@@ -59,4 +60,28 @@ class EnterpriseResponse {
         val isOwn: Boolean
     )
 
+    data class GetAdoptedBugs(
+        val totalCount: Long,
+        val bugs: List<Bug>
+    ) {
+        data class Bug(
+            val id: String,
+            val writer: String,
+            val title: String,
+            val type: BugType,
+            val status: BugStatusType,
+            val registerAt: String
+        )
+    }
+
+    data class GetAdoptedBug(
+        val id: String,
+        val projectName: String,
+        val writer: String,
+        val title: String,
+        val contents: String,
+        val type: BugType,
+        val imageUrl: List<String>?,
+        val registerAt: String
+    )
 }

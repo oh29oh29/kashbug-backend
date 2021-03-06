@@ -61,6 +61,12 @@ class BugService(
     }
 
     fun get(
+        bugId: String
+    ): Bug? {
+        return bugRepository.findByIdOrNull(bugId)
+    }
+
+    fun get(
         projectId: String,
         pageable: Pageable
     ): Page<Bug> {
@@ -68,9 +74,11 @@ class BugService(
     }
 
     fun get(
-        bugId: String
-    ): Bug? {
-        return bugRepository.findByIdOrNull(bugId)
+        projectId: List<String>,
+        isAdopted: Boolean,
+        pageable: Pageable
+    ): Page<Bug> {
+        return bugRepository.findByProjectIdInAndIsAdopted(projectId, isAdopted, pageable)
     }
 
     fun count(projectId: String): Int {

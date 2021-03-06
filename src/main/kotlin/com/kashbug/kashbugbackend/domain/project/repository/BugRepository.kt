@@ -9,6 +9,8 @@ interface BugRepository : JpaRepository<Bug, String> {
 
     fun findByProjectId(projectId: String, pageable: Pageable): Page<Bug>
 
+    fun findByProjectIdInAndIsAdopted(projectId: List<String>, isAdopted: Boolean, pageable: Pageable): Page<Bug>
+
     fun countByProjectId(projectId: String): Int
 
 }

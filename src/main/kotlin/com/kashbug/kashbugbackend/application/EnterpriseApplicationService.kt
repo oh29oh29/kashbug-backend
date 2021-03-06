@@ -10,6 +10,7 @@ import com.kashbug.kashbugbackend.error.exception.KashbugException
 import com.kashbug.kashbugbackend.presentation.data.ResponseCode
 import com.kashbug.kashbugbackend.toBasicString
 import com.kashbug.kashbugbackend.toLocalDateTime
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -194,6 +195,80 @@ class EnterpriseApplicationService(
             request.title,
             request.contents,
             request.imageUrl
+        )
+    }
+
+    fun getAdoptedBugsByEnterprise(
+        userId: String,
+        pageRequest: PageRequest
+    ): EnterpriseResponse.GetAdoptedBugs {
+        val projects = projectService.get(userId, Pageable.unpaged())
+        val bugs = bugService.get(
+            projects.map { it.id }.toList(),
+            true,
+            pageRequest
+        )
+
+        return EnterpriseResponse.GetAdoptedBugs(
+            bugs.totalElements,
+            bugs.map {
+                EnterpriseResponse.GetAdoptedBugs.Bug(
+                    it.id,
+                    it.writerId,
+                    it.title,
+                    it.type,
+                    it.status,
+                    it.registerAt.toBasicString()
+                )
+            }.toList()
+        )
+    }
+
+    // TODO: 중복 제거
+    fun getAdoptedBugsByProject(
+        userId: String,
+        projectId: String,
+        pageRequest: PageRequest
+    ): EnterpriseResponse.GetAdoptedBugs {
+        val bugs = bugService.get(
+            listOf(projectId),
+            true,
+            pageRequest
+        )
+
+        return EnterpriseResponse.GetAdoptedBugs(
+            bugs.totalElements,
+            bugs.map {
+                EnterpriseResponse.GetAdoptedBugs.Bug(
+                    it.id,
+                    it.writerId,
+                    it.title,
+                    it.type,
+                    it.status,
+                    it.registerAt.toBasicString()
+                )
+            }.toList()
+        )
+    }
+
+    fun getAdoptedBug(
+        userId: String,
+        bugId: String
+    ): EnterpriseResponse.GetAdoptedBug {
+        val bug = bugService.get(bugId) ?: throw KashbugException(ResponseCode.BAD_REQUEST)
+        val project = projectService.get(bug.projectId) ?: throw KashbugException(ResponseCode.BAD_REQUEST)
+
+        if (project.ownerId != userId) throw KashbugException(ResponseCode.NOT_ALLOWED_USER)
+
+        return EnterpriseResponse.GetAdoptedBug(
+            bug.id,
+            project.name,
+            bug.writerId,
+            bug.title,
+            bug.contents,
+            bug.type,
+            bug.imageUrl?.split(","),
+            bug.registerAt.toBasicString()
         )
     }
 }
