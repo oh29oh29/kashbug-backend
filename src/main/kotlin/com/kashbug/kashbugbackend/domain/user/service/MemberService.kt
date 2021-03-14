@@ -1,16 +1,18 @@
 package com.kashbug.kashbugbackend.domain.user.service
 
 import com.kashbug.kashbugbackend.domain.user.entity.Member
+import com.kashbug.kashbugbackend.domain.user.repository.MemberMetaRepository
 import com.kashbug.kashbugbackend.domain.user.repository.MemberRepository
 import com.kashbug.kashbugbackend.domain.user.value.GenderType
 import com.kashbug.kashbugbackend.domain.user.value.SignUpType
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import java.util.*
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class MemberService(
-    private val memberRepository: MemberRepository
+    private val memberRepository: MemberRepository,
+    private val memberMetaRepository: MemberMetaRepository
 ) {
 
     fun save(
@@ -40,11 +42,24 @@ class MemberService(
     }
 
     fun existId(id: String): Boolean {
-        val existMember = memberRepository.findByIdOrNull(id)
-        return !Objects.isNull(existMember)
+        return memberRepository.findByIdOrNull(id) != null
     }
 
     fun get(id: String): Member? {
         return memberRepository.findByIdOrNull(id)
+    }
+
+    /**
+     * 계좌번호 수정
+     * */
+    @Transactional
+    fun updateAccountNumber(
+        id: String,
+        number: String
+    ) {
+        memberMetaRepository.findByIdOrNull(id) ?.apply {
+            this.accountNumber = number
+            memberMetaRepository.save(this)
+        }
     }
 }

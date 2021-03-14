@@ -13,4 +13,6 @@ interface BugRepository : JpaRepository<Bug, String> {
 
     fun countByProjectId(projectId: String): Int
 
+    fun findByWriterId(writerId: String, pageable: Pageable): Page<Bug>
+
 }

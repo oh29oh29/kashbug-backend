@@ -81,6 +81,16 @@ class BugService(
         return bugRepository.findByProjectIdInAndIsAdopted(projectId, isAdopted, pageable)
     }
 
+    /**
+     * 버그 리스트 조회 by 사용자 ID
+     * */
+    fun getByUserId(
+        userId: String,
+        pageable: Pageable
+    ): Page<Bug> {
+        return bugRepository.findByWriterId(userId, pageable)
+    }
+
     fun count(projectId: String): Int {
         return bugRepository.countByProjectId(projectId)
     }

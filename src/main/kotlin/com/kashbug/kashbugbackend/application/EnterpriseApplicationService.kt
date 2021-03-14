@@ -79,6 +79,7 @@ class EnterpriseApplicationService(
         }
     }
 
+    @Transactional(readOnly = true)
     fun getProjects(
         ownerId: String,
         pageable: Pageable
@@ -103,6 +104,7 @@ class EnterpriseApplicationService(
         )
     }
 
+    @Transactional(readOnly = true)
     fun getProject(
         userId: String,
         projectId: String
@@ -198,6 +200,7 @@ class EnterpriseApplicationService(
         )
     }
 
+    @Transactional(readOnly = true)
     fun getAdoptedBugsByEnterprise(
         userId: String,
         pageRequest: PageRequest
@@ -225,6 +228,7 @@ class EnterpriseApplicationService(
     }
 
     // TODO: 중복 제거
+    @Transactional(readOnly = true)
     fun getAdoptedBugsByProject(
         userId: String,
         projectId: String,
@@ -251,6 +255,7 @@ class EnterpriseApplicationService(
         )
     }
 
+    @Transactional(readOnly = true)
     fun getAdoptedBug(
         userId: String,
         bugId: String

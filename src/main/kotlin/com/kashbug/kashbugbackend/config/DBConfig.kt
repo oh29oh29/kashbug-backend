@@ -7,4 +7,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 @Configuration
 @EnableJpaRepositories("com.kashbug.kashbugbackend.domain.*")
 @EntityScan("com.kashbug.kashbugbackend.domain.*")
-class DbConfig
+class DBConfig
