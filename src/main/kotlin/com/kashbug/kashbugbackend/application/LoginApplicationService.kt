@@ -51,7 +51,7 @@ class LoginApplicationService(
             throw KashbugException(ResponseCode.EXIST_USER_ID)
         }
 
-        memberService.save(
+        memberService.createMember(
             request.id,
             request.name,
             toEncryptedPassword(request.password),
@@ -63,6 +63,7 @@ class LoginApplicationService(
             SignUpType.DIRECT
         )
 
+        memberService.createMeta(request.id)
     }
 
     private fun joinEnterprise(request: LoginRequest.Join) {

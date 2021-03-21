@@ -1,6 +1,7 @@
 package com.kashbug.kashbugbackend.domain.user.service
 
 import com.kashbug.kashbugbackend.domain.user.entity.Member
+import com.kashbug.kashbugbackend.domain.user.entity.MemberMeta
 import com.kashbug.kashbugbackend.domain.user.repository.MemberMetaRepository
 import com.kashbug.kashbugbackend.domain.user.repository.MemberRepository
 import com.kashbug.kashbugbackend.domain.user.value.GenderType
@@ -15,7 +16,7 @@ class MemberService(
     private val memberMetaRepository: MemberMetaRepository
 ) {
 
-    fun save(
+    fun createMember(
         id: String,
         name: String,
         password: String,
@@ -49,15 +50,23 @@ class MemberService(
         return memberRepository.findByIdOrNull(id)
     }
 
+    fun createMeta(id: String) {
+        memberMetaRepository.save(
+            MemberMeta(id)
+        )
+    }
+
     /**
      * 계좌번호 수정
      * */
     @Transactional
     fun updateAccountNumber(
         id: String,
+        bankName: String,
         number: String
     ) {
-        memberMetaRepository.findByIdOrNull(id) ?.apply {
+        memberMetaRepository.findByIdOrNull(id)?.apply {
+            this.bankName = bankName
             this.accountNumber = number
             memberMetaRepository.save(this)
         }

@@ -24,9 +24,10 @@ class UserController(
     @PutMapping("/account/number")
     fun updateAccountNumber(
         userId: String,
+        bankName: String,       // TODO: enum
         accountNumber: String
     ): OkResponse<Void> {
-        userApplicationService.updateAccountNumber(userId, accountNumber)
+        userApplicationService.updateAccountNumber(userId, bankName, accountNumber)
         return OkResponse()
     }
 }

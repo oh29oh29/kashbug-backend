@@ -11,10 +11,12 @@ class MemberMeta(
     @Id
     val id: String,
 
-    @Column
-    var accountNumber: String
-
 ) {
+    @Column
+    var bankName: String? = null
+
+    @Column
+    var accountNumber: String? = null
 
     @Column(name = "register_datetime")
     val registerAt: LocalDateTime = LocalDateTime.now()
@@ -33,6 +35,8 @@ class MemberMeta(
     }
 
     override fun toString(): String {
-        return "MemberMeta(id='$id', accountNumber='$accountNumber', registerAt=$registerAt)"
+        return "MemberMeta(id='$id', bankName='$bankName', accountNumber='$accountNumber', registerAt=$registerAt)"
     }
+
+
 }

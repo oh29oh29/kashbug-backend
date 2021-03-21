@@ -35,9 +35,10 @@ class UserApplicationService(
 
     fun updateAccountNumber(
         userId: String,
+        bankName: String,
         accountNumber: String
     ) {
-        memberService.updateAccountNumber(userId, accountNumber)
+        memberService.updateAccountNumber(userId, bankName, accountNumber)
     }
 
 }
