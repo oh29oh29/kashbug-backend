@@ -88,12 +88,21 @@ class UserApplicationService(
         )
     }
 
-    fun updateAccountNumber(
+    fun getAccountInfo(userId: String): UserResponse.GetAccountInfo {
+        val accountInfo = memberService.getAccountInfo(userId)
+
+        return UserResponse.GetAccountInfo(
+            accountInfo?.accountNumber,
+            accountInfo?.bankName
+        )
+    }
+
+    fun updateAccountInfo(
         userId: String,
         bankName: String,
         accountNumber: String
     ) {
-        memberService.updateAccountNumber(userId, bankName, accountNumber)
+        memberService.updateAccountInfo(userId, bankName, accountNumber)
     }
 
 }

@@ -57,10 +57,10 @@ class MemberService(
     }
 
     /**
-     * 계좌번호 수정
+     * 계좌정보 수정
      * */
     @Transactional
-    fun updateAccountNumber(
+    fun updateAccountInfo(
         id: String,
         bankName: String,
         number: String
@@ -70,5 +70,9 @@ class MemberService(
             this.accountNumber = number
             memberMetaRepository.save(this)
         }
+    }
+
+    fun getAccountInfo(userId: String): MemberMeta? {
+        return memberMetaRepository.findByIdOrNull(userId)
     }
 }

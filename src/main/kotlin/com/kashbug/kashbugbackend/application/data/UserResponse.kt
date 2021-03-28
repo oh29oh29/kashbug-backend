@@ -51,4 +51,9 @@ class UserResponse {
                 )
         }
     }
+
+    data class GetAccountInfo(
+        val number: String?,
+        val bankName: String?
+    )
 }

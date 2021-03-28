@@ -32,7 +32,7 @@ class UserController(
         bankName: String,       // TODO: enum
         accountNumber: String
     ): OkResponse<Void> {
-        userApplicationService.updateAccountNumber(userId, bankName, accountNumber)
+        userApplicationService.updateAccountInfo(userId, bankName, accountNumber)
         return OkResponse()
     }
 
@@ -89,6 +89,13 @@ class UserController(
                     Sort.by(sortBy).descending()
                 )
             )
+        )
+    }
+
+    @GetMapping("/my/account")
+    fun getAccountInfo(userId: String): OkResponse<UserResponse.GetAccountInfo> {
+        return OkResponse(
+            userApplicationService.getAccountInfo(userId)
         )
     }
 }
