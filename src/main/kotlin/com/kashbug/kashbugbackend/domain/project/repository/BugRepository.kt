@@ -15,4 +15,6 @@ interface BugRepository : JpaRepository<Bug, String> {
 
     fun findByWriterId(writerId: String, pageable: Pageable): Page<Bug>
 
+    fun findByIdIn(id: List<String>, pageable: Pageable): Page<Bug>
+
 }

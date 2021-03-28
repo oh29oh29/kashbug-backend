@@ -9,4 +9,6 @@ interface ProjectRepository : JpaRepository<Project, String> {
 
     fun findByOwnerId(ownerId: String, pageable: Pageable): Page<Project>
 
+    fun findByIdIn(id: List<String>): List<Project>
+
 }

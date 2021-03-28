@@ -85,4 +85,10 @@ class ProjectService(
     ): Project? {
         return projectRepository.findByIdOrNull(projectId)
     }
+
+    fun get(
+        projectIds: List<String>
+    ): List<Project> {
+        return projectRepository.findByIdIn(projectIds)
+    }
 }

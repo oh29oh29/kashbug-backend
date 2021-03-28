@@ -67,6 +67,13 @@ class BugService(
     }
 
     fun get(
+        bugIds: List<String>,
+        pageable: Pageable
+    ): Page<Bug> {
+        return bugRepository.findByIdIn(bugIds, pageable)
+    }
+
+    fun get(
         projectId: String,
         pageable: Pageable
     ): Page<Bug> {
